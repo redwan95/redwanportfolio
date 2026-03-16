@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Redwan Kabir — GIS Portfolio</title>
+<meta name="description" content="GIS Specialist & Spatial Data Analyst — S M Redwan Kabir">
+<meta property="og:title" content="Redwan Kabir — GIS Specialist">
+<meta property="og:description" content="GIS Data Engineer | Spatial Data Analyst | Asset Management Professional">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070e1b;--bg1:#0a1424;--bg2:#0d1c31;--bg3:#111f38;--border:rgba(255,255,255,0.07);--b2:rgba(0,212,160,0.2);--a:#00d4a0;--a2:#4f9cf9;--a3:#f97316;--txt:#dce8f5;--t2:rgba(220,232,245,0.62);--t3:rgba(220,232,245,0.35);--ok:#10b981;--wn:#f59e0b;--er:#ef4444;--f:'Outfit',sans-serif;--d:'Syne',sans-serif;--sw:62px;--swo:208px;--r:8px;--r2:12px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:var(--f);font-size:15px;line-height:1.65;overflow-x:hidden}
+a{color:var(--a);text-decoration:none}a:hover{opacity:.85}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg1)}::-webkit-scrollbar-thumb{background:var(--b2);border-radius:2px}
+.lay{display:flex;min-height:100vh}
+.sb{position:fixed;left:0;top:0;bottom:0;width:var(--sw);background:rgba(5,10,20,.97);border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;z-index:200;overflow:hidden;transition:width .28s cubic-bezier(.4,0,.2,1);backdrop-filter:blur(16px)}
+.sb:hover,.sb.open{width:var(--swo)}
+.sb-logo{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--a),var(--a2));display:flex;align-items:center;justify-content:center;font-family:var(--d);font-size:14px;font-weight:800;color:#050a14;margin:18px auto 22px;flex-shrink:0;cursor:pointer;transition:transform .2s}
+.sb-logo:hover{transform:scale(1.05)}
+.sb-nav{display:flex;flex-direction:column;width:100%;padding:0 7px;gap:2px;flex:1;overflow:hidden}
+.sbl{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;cursor:pointer;color:var(--t2);font-size:13px;font-weight:500;transition:all .18s;white-space:nowrap;overflow:hidden;text-decoration:none;border-left:2px solid transparent}
+.sbl:hover,.sbl.on{background:rgba(0,212,160,.09);color:var(--a);text-decoration:none}
+.sbl.on{border-left-color:var(--a)}
+.sbl .ic{width:18px;height:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px}
+.sbl .lb{opacity:0;transition:opacity .12s .06s;font-size:13px}
+.sb:hover .lb,.sb.open .lb{opacity:1}
+.sb-div{height:1px;background:var(--border);margin:6px 8px}
+.sb-bot{margin-top:auto;padding:0 7px 14px;width:100%}
+.sb-adm{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;cursor:pointer;color:rgba(249,115,22,.8);font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;background:rgba(249,115,22,.05);border:1px solid rgba(249,115,22,.15);transition:all .18s;text-decoration:none}
+.sb-adm:hover{background:rgba(249,115,22,.12);color:var(--a3);text-decoration:none}
+.mn{margin-left:var(--sw);flex:1;min-width:0}
+.gbg{position:absolute;inset:0;background-image:linear-gradient(rgba(0,212,160,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,160,.025) 1px,transparent 1px);background-size:40px 40px;pointer-events:none}
+.gdot{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(0,212,160,.1) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;opacity:.5}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;padding:80px 56px}
+.hero-in{display:flex;align-items:center;gap:48px;max-width:1080px;position:relative;z-index:2}
+.hp{flex-shrink:0;position:relative}
+.hphoto{width:152px;height:152px;border-radius:50%;border:3px solid var(--a);object-fit:cover;display:block;background:var(--bg2)}
+.hph-pl{width:152px;height:152px;border-radius:50%;border:3px solid var(--a);background:linear-gradient(135deg,#1a3a5c,#0c2035);display:flex;align-items:center;justify-content:center;font-family:var(--d);font-size:38px;font-weight:800;color:var(--a)}
+.h-avail{position:absolute;bottom:7px;right:7px;width:18px;height:18px;border-radius:50%;background:var(--ok);border:3px solid var(--bg);animation:pd 2.2s infinite}
+@keyframes pd{0%,100%{box-shadow:0 0 0 0 rgba(16,185,129,.5)}55%{box-shadow:0 0 0 7px rgba(16,185,129,0)}}
+.hc{flex:1}
+.hint{font-size:12px;color:var(--a);font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:9px}
+.hname{font-family:var(--d);font-size:clamp(30px,3.8vw,50px);font-weight:800;line-height:1.06;background:linear-gradient(90deg,var(--a) 0%,var(--a2) 55%,#a78bfa 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:9px}
+.htit{font-size:17px;color:var(--t2);margin-bottom:5px}
+.hloc{font-size:13px;color:var(--t3);margin-bottom:18px;display:flex;align-items:center;gap:5px}
+.htags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:24px}
+.htag{padding:5px 11px;border-radius:99px;border:1px solid var(--b2);color:var(--a);font-size:12px;font-weight:500}
+.hbtns{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:24px}
+.btnp{display:inline-flex;align-items:center;gap:6px;padding:11px 20px;border-radius:var(--r);background:linear-gradient(135deg,var(--a),var(--a2));color:#050a14;font-size:14px;font-weight:600;border:none;cursor:pointer;font-family:var(--f);transition:all .2s;text-decoration:none}
+.btnp:hover{opacity:.9;transform:translateY(-1px);text-decoration:none}
+.btno{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:var(--r);background:transparent;color:var(--a);font-size:14px;font-weight:500;border:1px solid var(--b2);cursor:pointer;font-family:var(--f);transition:all .2s;text-decoration:none}
+.btno:hover{background:rgba(0,212,160,.07);text-decoration:none}
+.hsoc{display:flex;flex-wrap:wrap;gap:10px}
+.socl{display:flex;align-items:center;gap:6px;color:var(--t2);font-size:13px;padding:6px 11px;border:1px solid var(--border);border-radius:7px;transition:all .18s;text-decoration:none}
+.socl:hover{border-color:var(--b2);color:var(--a);text-decoration:none}
+.stbar{background:rgba(255,255,255,.02);border-top:1px solid var(--border);border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap}
+.st{flex:1;min-width:120px;padding:20px 18px;border-right:1px solid var(--border);text-align:center}
+.st:last-child{border-right:none}
+.stn{font-family:var(--d);font-size:26px;font-weight:700;color:var(--a);line-height:1}
+.stl{font-size:11px;color:var(--t3);margin-top:4px;letter-spacing:.04em}
+section{padding:68px 56px;max-width:1160px;margin:0 auto}
+.sh{margin-bottom:38px}
+.sbadge{display:inline-block;padding:3px 11px;background:rgba(0,212,160,.1);border:1px solid rgba(0,212,160,.2);border-radius:99px;font-size:11px;font-weight:600;color:var(--a);letter-spacing:.08em;text-transform:uppercase;margin-bottom:9px}
+.stitle{font-family:var(--d);font-size:clamp(22px,2.8vw,34px);font-weight:800;color:var(--txt)}
+.sline{width:44px;height:3px;background:linear-gradient(90deg,var(--a),var(--a2));border-radius:2px;margin-top:10px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.card{background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:var(--r2);padding:22px}
+.card:hover{border-color:rgba(255,255,255,.12)}
+.tl{display:flex;flex-direction:column;gap:0}
+.tli{position:relative;padding:0 0 22px 26px;border-left:2px solid var(--border)}
+.tli:last-child{border-left:2px solid transparent;padding-bottom:0}
+.tld{position:absolute;left:-7px;top:5px;width:12px;height:12px;border-radius:50%;background:var(--a);border:2px solid var(--bg)}
+.tli.cur .tld{box-shadow:0 0 0 4px rgba(0,212,160,.15)}
+.tlr{font-size:14px;font-weight:600;color:var(--txt)}
+.tlc{font-size:13px;color:var(--a);margin:2px 0}
+.tlt{font-size:11px;color:var(--t3);margin-bottom:5px}
+.tldsc{font-size:13px;color:var(--t2);line-height:1.6}
+.sk-tabs{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:24px}
+.skt{padding:6px 15px;border-radius:99px;border:1px solid var(--border);color:var(--t2);font-size:13px;cursor:pointer;transition:all .18s;background:transparent;font-family:var(--f)}
+.skt:hover,.skt.on{background:rgba(0,212,160,.09);border-color:var(--b2);color:var(--a)}
+.skp{display:none}.skp.on{display:block}
+.skbg{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:24px}
+.skb{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:9px;font-size:13px;color:var(--t2);transition:all .18s}
+.skb:hover{border-color:var(--b2);color:var(--txt)}
+.skbd{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.skbars{display:flex;flex-direction:column;gap:13px}
+.skbr{display:flex;align-items:center;gap:13px}
+.skbn{width:180px;font-size:13px;color:var(--t2);flex-shrink:0}
+.skbt{flex:1;height:5px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden}
+.skbf{height:100%;border-radius:3px;transform-origin:left;transform:scaleX(0);transition:transform 1s ease}
+.skbf.an{transform:scaleX(1)}
+.skbp{width:32px;font-size:12px;color:var(--a);font-family:var(--d);font-weight:600;text-align:right}
+.ptabs{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:24px}
+.ptab{padding:6px 15px;border-radius:7px;border:1px solid var(--border);color:var(--t2);font-size:13px;cursor:pointer;transition:all .18s;background:transparent;font-family:var(--f)}
+.ptab:hover,.ptab.on{background:rgba(0,212,160,.09);border-color:var(--b2);color:var(--a)}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px}
+.pc{background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;transition:all .22s}
+.pc:hover{border-color:var(--b2);transform:translateY(-2px);background:rgba(255,255,255,.035)}
+.pc.feat{border-color:rgba(0,212,160,.25)}
+.pce{display:none;padding:0 16px 16px}.pce.open{display:block}
+.pef{width:100%;aspect-ratio:16/9;border-radius:8px;overflow:hidden;border:1px solid var(--border)}
+.pef iframe{width:100%;height:100%;border:none}
+.pct{padding:18px}
+.pccat{display:inline-block;padding:3px 8px;border-radius:4px;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:9px}
+.pctit{font-size:15px;font-weight:600;color:var(--txt);margin-bottom:5px;line-height:1.35}
+.pcd{font-size:13px;color:var(--t2);margin-bottom:11px;line-height:1.6}
+.pcm{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.pcmet{padding:3px 8px;background:rgba(0,212,160,.07);border:1px solid rgba(0,212,160,.18);border-radius:5px;font-size:11px;color:var(--a)}
+.pctags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:13px}
+.pctag{padding:2px 7px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:4px;font-size:11px;color:var(--t3)}
+.pcact{display:flex;gap:7px;flex-wrap:wrap}
+.pcbp{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:none;font-family:var(--f);background:linear-gradient(135deg,var(--a),var(--a2));color:#050a14;text-decoration:none}
+.pcbg{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;font-family:var(--f);background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--t2)}
+.pcbg:hover{border-color:var(--b2);color:var(--txt)}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
+.cc{display:flex;align-items:center;gap:12px;padding:14px;background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:var(--r2);transition:all .18s}
+.cc:hover{border-color:var(--b2);background:rgba(255,255,255,.04)}
+.cci{width:42px;height:42px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.ccn{font-size:13px;font-weight:600;color:var(--txt);line-height:1.35}
+.ccs{font-size:11px;color:var(--a);margin-top:1px}
+.ccd{font-size:11px;color:var(--t3);margin-top:1px}
+.pubs{display:flex;flex-direction:column;gap:11px}
+.pub{padding:16px 18px;background:rgba(255,255,255,.02);border:1px solid var(--border);border-left:3px solid var(--a2);border-radius:0 var(--r) var(--r) 0;transition:all .18s}
+.pub:hover{border-left-color:var(--a);background:rgba(255,255,255,.04)}
+.pubt{font-size:14px;font-weight:600;color:var(--txt);margin-bottom:4px;line-height:1.35}
+.pubv{font-size:12px;color:var(--a);margin-bottom:3px}
+.pubd{font-size:12px;color:var(--t3)}
+.agrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px}
+.ac{padding:14px;background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:var(--r2);display:flex;align-items:flex-start;gap:11px;transition:all .18s}
+.ac:hover{border-color:rgba(245,158,11,.3)}
+.aci{width:34px;height:34px;border-radius:7px;background:rgba(245,158,11,.1);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.act{font-size:13px;font-weight:500;color:var(--txt);line-height:1.4}
+.cgrd{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.ci{display:flex;flex-direction:column;gap:12px}
+.cr{display:flex;align-items:center;gap:11px;padding:13px 15px;background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:var(--r);transition:all .18s}
+.cr:hover{border-color:var(--b2)}
+.cri{width:34px;height:34px;border-radius:7px;background:rgba(0,212,160,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.crl{font-size:11px;color:var(--t3);margin-bottom:2px}
+.crv{font-size:14px;color:var(--txt);font-weight:500}
+.cf{background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:var(--r2);padding:22px;display:flex;flex-direction:column;gap:13px}
+.cf label{font-size:12px;color:var(--t2);font-weight:500;margin-bottom:4px;display:block}
+.cf input,.cf textarea{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:var(--r);padding:9px 13px;color:var(--txt);font-size:14px;font-family:var(--f);width:100%;outline:none;transition:border-color .18s}
+.cf input:focus,.cf textarea:focus{border-color:var(--b2)}
+.cf textarea{min-height:95px;resize:vertical}
+footer{background:rgba(5,10,20,.8);border-top:1px solid var(--border);padding:24px 56px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease}
+.reveal.vis{opacity:1;transform:translateY(0)}
+.notif{position:fixed;bottom:22px;right:22px;padding:11px 16px;border-radius:var(--r);font-size:13px;color:#fff;z-index:9999;pointer-events:none;animation:ni .25s ease}
+@keyframes ni{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}
+@media(max-width:860px){.g2,.cgrd{grid-template-columns:1fr}.hero-in{flex-direction:column;text-align:center;gap:24px}.hbtns,.hsoc,.htags{justify-content:center}section{padding:46px 18px}.hero{padding:76px 18px 44px}footer{flex-direction:column;text-align:center;padding:22px 18px}}
+@media(max-width:580px){.stbar{flex-wrap:wrap}.st{min-width:50%}.pgrid{grid-template-columns:1fr}.cgrid,.agrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="lay">
+<nav class="sb" id="SB">
+  <div class="sb-logo" onclick="goSec('hero-s')">RK</div>
+  <div class="sb-nav">
+    <a href="#hero-s" class="sbl on" data-s="hero-s"><span class="ic">&#9679;</span><span class="lb">Home</span></a>
+    <a href="#about-s" class="sbl" data-s="about-s"><span class="ic">&#128100;</span><span class="lb">About</span></a>
+    <a href="#skills-s" class="sbl" data-s="skills-s"><span class="ic">&#128295;</span><span class="lb">Skills</span></a>
+    <a href="#proj-s" class="sbl" data-s="proj-s"><span class="ic">&#128193;</span><span class="lb">Projects</span></a>
+    <a href="#cert-s" class="sbl" data-s="cert-s"><span class="ic">&#127941;</span><span class="lb">Certifications</span></a>
+    <a href="#pub-s" class="sbl" data-s="pub-s"><span class="ic">&#128196;</span><span class="lb">Research</span></a>
+    <a href="#award-s" class="sbl" data-s="award-s"><span class="ic">&#127942;</span><span class="lb">Awards</span></a>
+    <a href="#contact-s" class="sbl" data-s="contact-s"><span class="ic">&#9993;</span><span class="lb">Contact</span></a>
+  </div>
+  <div class="sb-bot">
+    <div class="sb-div"></div>
+    <a href="admin.html" class="sb-adm"><span class="ic" style="font-size:14px">&#9881;</span><span class="lb">Admin Panel</span></a>
+  </div>
+</nav>
+<main class="mn">
+<div id="hero-s" style="position:relative">
+  <div class="gbg"></div><div class="gdot"></div>
+  <div class="hero">
+    <div class="hero-in">
+      <div class="hp"><div id="HPHOTO"></div><div class="h-avail" title="Open to opportunities"></div></div>
+      <div class="hc">
+        <div class="hint">GIS Specialist &amp; Spatial Data Analyst</div>
+        <div class="hname" id="HNAME">S M Redwan Kabir</div>
+        <div class="htit" id="HTIT">GIS Data Engineer | Spatial Data Analyst | Asset Management Professional</div>
+        <div class="hloc"><span>&#128205;</span><span id="HLOC">Jefferson City, MO</span></div>
+        <div class="htags" id="HTAGS"></div>
+        <div class="hbtns">
+          <a id="CVBTN" href="assets/RedwanKabir_CV.pdf" target="_blank" class="btnp" download>&#11015; Download Resume</a>
+          <a href="#proj-s" class="btno">View Projects</a>
+          <a href="#contact-s" class="btno">Contact Me</a>
+        </div>
+        <div class="hsoc" id="HSOC"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="stbar" id="STATS"></div>
+<section id="about-s" class="reveal">
+  <div class="sh"><div class="sbadge">About</div><h2 class="stitle">Professional Background</h2><div class="sline"></div></div>
+  <div class="g2" id="ABOUT"></div>
+</section>
+<section id="skills-s" class="reveal">
+  <div class="sh"><div class="sbadge">Skills</div><h2 class="stitle">Technical Expertise</h2><div class="sline"></div></div>
+  <div class="sk-tabs" id="SKTABS"></div>
+  <div id="SKPANELS"></div>
+</section>
+<section id="proj-s" class="reveal">
+  <div class="sh"><div class="sbadge">Projects</div><h2 class="stitle">Projects &amp; Applications</h2><div class="sline"></div></div>
+  <div class="ptabs" id="PTABS"></div>
+  <div class="pgrid" id="PGRID"></div>
+</section>
+<section id="cert-s" class="reveal">
+  <div class="sh"><div class="sbadge">Certifications</div><h2 class="stitle">Professional Certifications</h2><div class="sline"></div></div>
+  <div class="cgrid" id="CGRID"></div>
+</section>
+<section id="pub-s" class="reveal">
+  <div class="sh"><div class="sbadge">Research</div><h2 class="stitle">Publications &amp; Research</h2><div class="sline"></div></div>
+  <div class="pubs" id="PUBS"></div>
+</section>
+<section id="award-s" class="reveal">
+  <div class="sh"><div class="sbadge">Honors</div><h2 class="stitle">Awards &amp; Honors</h2><div class="sline"></div></div>
+  <div class="agrid" id="AWARDS"></div>
+</section>
+<section id="contact-s" class="reveal">
+  <div class="sh"><div class="sbadge">Contact</div><h2 class="stitle">Get In Touch</h2><div class="sline"></div></div>
+  <div class="cgrd">
+    <div class="ci" id="CINFO"></div>
+    <div class="cf">
+      <h3 style="font-family:var(--d);font-size:17px;font-weight:700;color:var(--txt);margin-bottom:2px">Send a Message</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px"><div><label>Name</label><input type="text" id="cN" placeholder="Your name"></div><div><label>Email</label><input type="email" id="cE" placeholder="your@email.com"></div></div>
+      <div><label>Subject</label><input type="text" id="cS" placeholder="Opportunity, collaboration..."></div>
+      <div><label>Message</label><textarea id="cM" placeholder="Tell me about your project..."></textarea></div>
+      <button class="btnp" onclick="sendMsg()" style="align-self:flex-start">&#10148; Send Message</button>
+    </div>
+  </div>
+</section>
+<footer>
+  <div style="font-family:var(--d);font-size:15px;font-weight:700" id="FNAME">S M Redwan Kabir</div>
+  <div style="font-size:12px;color:var(--t3)">GIS Specialist &bull; Spatial Data Analyst &bull; Jefferson City, MO</div>
+  <div style="display:flex;gap:18px;font-size:13px" id="FLINKS"></div>
+</footer>
+</main>
+</div>
+<script>
+const DEF={
+  name:"S M Redwan Kabir",title:"GIS Data Engineer | Spatial Data Analyst | Asset Management Professional",
+  location:"Jefferson City, MO",email:"redwan.kuet@gmail.com",phone:"269-529-8790",
+  linkedin:"https://www.linkedin.com/in/redwankabir95/",github:"https://github.com/redwan95",
+  researchgate:"https://www.researchgate.net/profile/S-M-Redwan-Kabir",
+  cvUrl:"assets/RedwanKabir_CV.pdf",profilePhoto:"",gaId:"",
+  tags:["ArcGIS Pro","Python","SQL","Remote Sensing","Machine Learning","VueWorks","QGIS","GEE"],
+  about:"GIS Specialist with 6+ years of proven expertise in enterprise geospatial data management, spatial analysis, Python/SQL automation, and land use/transportation planning. Proficient in ArcGIS Pro/Enterprise/Online, delivering data-driven maps, dashboards, and reports for government agencies and private organizations.",
+  objective:"To leverage geospatial analytics, predictive modeling, and AI to advance infrastructure resilience and sustainable planning. My focus is on modeling risks from extreme weather, analyzing transportation equity, and developing data-driven tools that support adaptive planning and decision-making for sustainable urban systems.",
+  stats:[{n:"6+",l:"Years Experience"},{n:"12",l:"Projects Live"},{n:"1,528",l:"km\u00b2 Mapped"},{n:"3.94",l:"MS GPA (WMU)"},{n:"5",l:"Publications"}],
+  experience:[
+    {role:"GIS Technician",company:"Missouri Department of Conservation",location:"Jefferson City, MO",period:"Jul 2024 \u2013 Present",current:true,desc:"Asset tracking via VueWorks reducing maintenance costs; QA/QC in ArcGIS Pro/Enterprise; SQL geodatabase analytics; flood infrastructure mapping; Python/ModelBuilder automation boosting productivity 35%; Survey123/Field Maps/Trimble R2 deployment; ArcGIS Dashboards & Experience Builder applications."},
+    {role:"Graduate Research Assistant",company:"Western Michigan University",location:"Kalamazoo, MI",period:"Aug 2022 \u2013 Apr 2024",current:false,desc:"Chicago Urban Heat Island Project: Python/ArcPy data pipelines; Landsat/MODIS LST spatiotemporal analysis; ML socioeconomic correlation models at census tract level; quantile mapping satellite validation improving accuracy 18%; national and international conference presentations."},
+    {role:"Urban Planner",company:"Sheltech Consultants Pvt. Ltd.",location:"Dhaka, Bangladesh",period:"Dec 2017 \u2013 Jun 2022",current:false,desc:"Dhaka Master Plan (1,528 km\u00b2): GIS planning frameworks; ModelBuilder/Python tools increasing productivity by 60%; transport/zoning impact assessments; stakeholder presentations to government officials."}
+  ],
+  education:[
+    {degree:"MS in Geography",school:"Western Michigan University",location:"Kalamazoo, MI, USA",date:"Spring 2024",gpa:"3.94/4.00"},
+    {degree:"BURP (Urban & Regional Planning)",school:"Khulna University of Engineering & Technology",location:"Khulna, Bangladesh",date:"Spring 2017",gpa:"3.62/4.00"}
+  ],
+  skills:{
+    "GIS Tools":[{n:"ArcGIS Pro",l:96,c:"#00d4a0"},{n:"ArcGIS Enterprise",l:88,c:"#00d4a0"},{n:"ArcGIS Online",l:92,c:"#00d4a0"},{n:"QGIS",l:72,c:"#00d4a0"},{n:"Dashboards / Experience Builder",l:90,c:"#00d4a0"},{n:"Field Maps / Survey123",l:88,c:"#00d4a0"}],
+    "Programming":[{n:"Python (ArcPy, geopandas)",l:88,c:"#4f9cf9"},{n:"SQL / Geodatabases",l:85,c:"#4f9cf9"},{n:"R (Statistical Analysis)",l:72,c:"#4f9cf9"},{n:"ModelBuilder",l:90,c:"#4f9cf9"},{n:"Google Earth Engine API",l:78,c:"#4f9cf9"}],
+    "Remote Sensing":[{n:"Landsat / MODIS",l:85,c:"#f59e0b"},{n:"Sentinel-2",l:80,c:"#f59e0b"},{n:"Google Earth Engine",l:82,c:"#f59e0b"},{n:"Urban Heat Analysis",l:88,c:"#f59e0b"}],
+    "Data & Analytics":[{n:"Tableau / Power BI",l:75,c:"#a78bfa"},{n:"Machine Learning (RF, XGBoost)",l:78,c:"#a78bfa"},{n:"VueWorks Asset Management",l:90,c:"#a78bfa"},{n:"Excel (Pivot / VLOOKUP)",l:88,c:"#a78bfa"}]
+  },
+  projects:[
+    {id:"p1",cat:"Dashboards",title:"Missouri Flood Monitoring Dashboard",desc:"Real-time flood indicators and spatial layers for Missouri Dept of Conservation. Tracks statewide infrastructure risk for mitigation planning.",metrics:["1,528 km\u00b2 coverage","State agency use","Real-time data"],tags:["ArcGIS Pro","Dashboards","SQL","Python"],viewUrl:"https://www.arcgis.com/apps/dashboards/f26e06c18ff24a1bab746fd4e24e8a9e",embedUrl:"https://www.arcgis.com/apps/dashboards/f26e06c18ff24a1bab746fd4e24e8a9e",featured:true},
+    {id:"p2",cat:"Dashboards",title:"Real-time 911 Public Safety Dashboard",desc:"ArcGIS Dashboard with live 911 call data for Redlands County, CA. Real-time incident KPIs and geographic distribution maps.",metrics:["Live incident data","County-wide","Public safety KPIs"],tags:["ArcGIS Dashboards","Real-time","Spatial Analysis"],viewUrl:"https://www.arcgis.com/apps/dashboards/9fcff794eb2f4ccba5b96f02944aeb19",embedUrl:"https://www.arcgis.com/apps/dashboards/9fcff794eb2f4ccba5b96f02944aeb19",featured:true},
+    {id:"p3",cat:"ML & Environmental",title:"Chicago Urban Heat Island ML Analysis",desc:"Complete ML pipeline analyzing LST spatiotemporal patterns using Python, ArcPy, Landsat/MODIS, and NOAA API. Quantile mapping improved accuracy 18%.",metrics:["77 census tracts","18% accuracy gain","Peer-reviewed"],tags:["Python","ArcPy","Landsat","XGBoost","NOAA API"],viewUrl:"https://github.com/redwan95/lst-ml-model",featured:true},
+    {id:"p4",cat:"Spatial Analysis",title:"Michigan Healthcare Drive-Time Analysis",desc:"Network analyst drive-time modeling for healthcare equity assessment. Geocoded clinic data and analyzed accessibility at census tract level.",metrics:["Statewide coverage","Network Analyst","Equity mapping"],tags:["ArcGIS Pro","Network Analyst","Python","Census"],viewUrl:"https://wmugeography.maps.arcgis.com/home/webmap/viewer.html?layers=091407613c414685a983f33d894bf194",embedUrl:"https://wmugeography.maps.arcgis.com/home/webmap/viewer.html?layers=091407613c414685a983f33d894bf194"},
+    {id:"p5",cat:"ML & Environmental",title:"Landsat LST Quantile Mapping",desc:"Novel bias-correction technique aligning Landsat 8 LST with MODIS. Reduces systematic error and improves urban thermal mapping accuracy.",metrics:["Novel methodology","30m resolution","Spatiotemporal"],tags:["Python","Landsat","MODIS","Statistics"],viewUrl:"https://github.com/redwan95/lst-quantile-mapping"},
+    {id:"p6",cat:"Spatial Analysis",title:"Detroit Medical Underserved Areas",desc:"Census-based spatial equity assessment identifying medically underserved areas. Integrated demographic and healthcare accessibility data.",metrics:["City-wide","Equity mapping","Multi-source data"],tags:["ArcGIS Pro","Python","Census","Spatial Equity"],viewUrl:"https://github.com/redwan95/detroit-medical-underserved-areas"},
+    {id:"p7",cat:"Web Apps",title:"OSM Streamlit Mapping Dashboard",desc:"Interactive analytics dashboard with OpenStreetMap tiles and spatial analysis. Live deployment with real-time data exploration.",metrics:["Live deployment","OSM integration","Interactive"],tags:["Python","Streamlit","OSM","GeoPandas"],viewUrl:"https://osmmapping-mwzkbj8sxmhgbusvmymrdt.streamlit.app/",embedUrl:"https://osmmapping-mwzkbj8sxmhgbusvmymrdt.streamlit.app/"}
+  ],
+  certifications:[
+    {name:"Going Places with Spatial Analysis",issuer:"ESRI \u2014 6-Week ILT",date:"March 2025",icon:"\ud83d\uddfa\ufe0f",bg:"rgba(0,212,160,0.1)",link:"https://www.esri.com/training/catalog/5f9ec8e4af8e6b989bdd3b38/going-places-with-spatial-analysis/"},
+    {name:"ArcGIS Online: Essential Workflows",issuer:"ESRI \u2014 8-Hour ILT",date:"December 2024",icon:"\ud83c\udf10",bg:"rgba(79,156,249,0.1)"},
+    {name:"Make an Impact with Modern Geo Apps",issuer:"ESRI \u2014 4-Week ILT",date:"October 2024",icon:"\ud83d\udcf1",bg:"rgba(167,139,250,0.1)"},
+    {name:"Python for Everyone",issuer:"ESRI Web Course",date:"January 2023",icon:"\ud83d\udc0d",bg:"rgba(79,156,249,0.1)"},
+    {name:"Origin-Destination Cost Matrix",issuer:"ESRI Web Course",date:"November 2022",icon:"\ud83d\udd00",bg:"rgba(245,158,11,0.1)"},
+    {name:"Crime Analysis: Data Management",issuer:"ESRI Web Course",date:"November 2022",icon:"\ud83d\udcca",bg:"rgba(239,68,68,0.1)"}
+  ],
+  publications:[
+    {title:"Spatiotemporal Variability of Land Surface Temperature in Chicago, Illinois",venue:"Master's Thesis, Western Michigan University (2024)",desc:"Urban heat island dynamics using Landsat/MODIS and ML methods.",link:"https://scholarworks.wmich.edu/masters_theses/5402/"},
+    {title:"Enhancing Urban Thermal Mapping via Quantile Correction of Landsat LST with MODIS",venue:"Manuscript in Progress (2025)",desc:"Novel bias-correction methodology for satellite-derived urban temperature mapping."},
+    {title:"Assessing the Performance of Highway Based on Speed Study Analysis",venue:"ICPACe 2017 \u2014 Khulna-Jessore Highway",desc:"Traffic performance analysis for a major Bangladesh highway corridor.",link:"https://www.researchgate.net/publication/377781190"},
+    {title:"Traffic Congestion at Road Intersection: Fulbarigate, Khulna",venue:"ICCESD 2016",desc:"Intersection-level traffic congestion and management strategies in an urban corridor.",link:"https://www.researchgate.net/publication/377781185"},
+    {title:"Evaluation of Inland Waterway Freight Transport in Khulna City",venue:"Civil Engineering Summit 2017",desc:"Assessment of inland waterway freight transport capacity and efficiency.",link:"https://www.researchgate.net/publication/325321677"}
+  ],
+  awards:[
+    {title:"Student Travel Grant \u2014 Graduate College, Western Michigan University (Nov 2023)",link:"https://wmich.edu/grad/awards"},
+    {title:"Student Research Grant \u2014 Graduate College, Western Michigan University (Apr 2023)",link:"https://wmich.edu/grad/awards"},
+    {title:"L. Harrison Graduate Tuition Scholarship (Full Waiver) \u2014 WMU (2022\u20132024)"},
+    {title:"Champion Award, Case Study Analysis Competition \u2014 Islamic University of Technology (2015)",link:"https://drive.google.com/file/d/1pXkWUPmrnanayZjg0onk7qC70PG_dWCW/view"},
+    {title:"Undergraduate Technical Scholarship \u2014 Khulna University of Engineering & Technology"}
+  ]
+};
+function gD(){try{const s=localStorage.getItem('pfv3');return s?JSON.parse(s):DEF}catch(e){return DEF}}
+function h(s){return(s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function goSec(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth'})}
+function render(){
+  const D=gD();
+  if(D.gaId){const s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+D.gaId;document.head.appendChild(s);window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config',D.gaId)}
+  document.title=(D.name||'Redwan Kabir')+' \u2014 GIS Portfolio';
+  const ph=document.getElementById('HPHOTO');
+  ph.innerHTML=D.profilePhoto?`<img class="hphoto" src="${h(D.profilePhoto)}" alt="${h(D.name)}">`:`<div class="hph-pl">${h((D.name||'RK').split(' ').map(w=>w[0]).slice(0,2).join(''))}</div>`;
+  document.getElementById('HNAME').textContent=D.name||'';
+  document.getElementById('HTIT').textContent=D.title||'';
+  document.getElementById('HLOC').textContent=D.location||'';
+  document.getElementById('FNAME').textContent=D.name||'';
+  if(D.cvUrl)document.getElementById('CVBTN').href=D.cvUrl;
+  document.getElementById('HTAGS').innerHTML=(D.tags||[]).map(t=>`<span class="htag">${h(t)}</span>`).join('');
+  document.getElementById('HSOC').innerHTML=[{k:'linkedin',lb:'LinkedIn',i:'in'},{k:'github',lb:'GitHub',i:'gh'},{k:'researchgate',lb:'ResearchGate',i:'rg'},{k:'email',lb:'Email',i:'@',em:true}].filter(s=>D[s.k]).map(s=>`<a href="${s.em?'mailto:'+h(D[s.k]):h(D[s.k])}" class="socl" target="_blank"><span>${s.i}</span><span>${s.lb}</span></a>`).join('');
+  document.getElementById('STATS').innerHTML=(D.stats||[]).map(s=>`<div class="st"><div class="stn">${h(s.n)}</div><div class="stl">${h(s.l)}</div></div>`).join('');
+  const edu=D.education||[];
+  document.getElementById('ABOUT').innerHTML=`<div>
+    <div class="card" style="margin-bottom:20px">
+      <h3 style="font-family:var(--d);font-size:16px;font-weight:700;color:var(--txt);margin-bottom:11px">About Me</h3>
+      <p style="font-size:15px;color:var(--t2);line-height:1.8">${h(D.about)}</p>
+    </div>
+    <div class="card">
+      <h3 style="font-family:var(--d);font-size:16px;font-weight:700;color:var(--txt);margin-bottom:11px">Research Objective</h3>
+      <p style="font-size:15px;color:var(--t2);line-height:1.8">${h(D.objective)}</p>
+    </div>
+  </div>
+  <div>
+    <div class="card" style="margin-bottom:20px">
+      <h3 style="font-family:var(--d);font-size:16px;font-weight:700;color:var(--txt);margin-bottom:14px">Work Experience</h3>
+      <div class="tl">${(D.experience||[]).map(e=>`<div class="tli${e.current?' cur':''}"><div class="tld"></div><div class="tlr">${h(e.role)}</div><div class="tlc">${h(e.company)}</div><div class="tlt">${h(e.location)} &bull; ${h(e.period)}</div><div class="tldsc">${h(e.desc)}</div></div>`).join('')}</div>
+    </div>
+    <div class="card">
+      <h3 style="font-family:var(--d);font-size:16px;font-weight:700;color:var(--txt);margin-bottom:14px">Education</h3>
+      ${edu.map(e=>`<div style="margin-bottom:13px;padding-bottom:13px;border-bottom:1px solid var(--border)"><div style="font-size:14px;font-weight:600;color:var(--txt)">${h(e.degree)}</div><div style="font-size:13px;color:var(--a);margin:2px 0">${h(e.school)}</div><div style="font-size:12px;color:var(--t3)">${h(e.date)} &bull; GPA: ${h(e.gpa)}</div></div>`).join('')}
+    </div>
+  </div>`;
+  const scats=Object.keys(D.skills||{});
+  document.getElementById('SKTABS').innerHTML=scats.map((c,i)=>`<button class="skt${i===0?' on':''}" onclick="swSk('${h(c)}',this)">${h(c)}</button>`).join('');
+  document.getElementById('SKPANELS').innerHTML=scats.map((c,i)=>{
+    const items=D.skills[c]||[];
+    return`<div class="skp${i===0?' on':''}" id="sp-${h(c)}">
+      <div class="skbg">${items.map(it=>`<div class="skb"><div class="skbd" style="background:${it.c||'var(--a)'}"></div>${h(it.n||it)}</div>`).join('')}</div>
+      <div class="skbars">${items.filter(it=>it.l).map(it=>`<div class="skbr"><div class="skbn">${h(it.n)}</div><div class="skbt"><div class="skbf" style="background:linear-gradient(90deg,${it.c||'var(--a)'},var(--a2));width:${it.l}%"></div></div><div class="skbp">${it.l}%</div></div>`).join('')}</div>
+    </div>`;
+  }).join('');
+  setTimeout(aBars,400);
+  const pcats=['All',...new Set((D.projects||[]).map(p=>p.cat))];
+  document.getElementById('PTABS').innerHTML=pcats.map((c,i)=>`<button class="ptab${i===0?' on':''}" onclick="fProj('${h(c)}',this)">${h(c)}</button>`).join('');
+  rProj(D.projects,'All');
+  document.getElementById('CGRID').innerHTML=(D.certifications||[]).map(c=>`<div class="cc"${c.link?` onclick="window.open('${h(c.link)}','_blank')" style="cursor:pointer"`:''}>
+    <div class="cci" style="background:${c.bg||'rgba(0,212,160,0.1)'}">${c.icon||'\ud83c\udf96\ufe0f'}</div>
+    <div><div class="ccn">${h(c.name)}</div><div class="ccs">${h(c.issuer||'ESRI')}</div><div class="ccd">${h(c.date)}</div></div>
+  </div>`).join('');
+  document.getElementById('PUBS').innerHTML=(D.publications||[]).map(p=>`<div class="pub"${p.link?` onclick="window.open('${h(p.link)}','_blank')" style="cursor:pointer"`:''}>
+    <div class="pubt">${h(p.title)}</div><div class="pubv">${h(p.venue)}</div>${p.desc?`<div class="pubd">${h(p.desc)}</div>`:''}
+  </div>`).join('');
+  document.getElementById('AWARDS').innerHTML=(D.awards||[]).map(a=>`<div class="ac"${a.link?` onclick="window.open('${h(a.link)}','_blank')" style="cursor:pointer"`:''}>
+    <div class="aci">\ud83c\udfc6</div><div class="act">${h(a.title)}</div>
+  </div>`).join('');
+  document.getElementById('CINFO').innerHTML=[
+    {i:'\u2709\ufe0f',l:'Email',v:D.email,href:'mailto:'+D.email},
+    {i:'\ud83d\udcde',l:'Phone',v:D.phone},
+    {i:'\ud83d\udccd',l:'Location',v:D.location},
+    {i:'in',l:'LinkedIn',v:'linkedin.com/in/redwankabir95',href:D.linkedin},
+    {i:'gh',l:'GitHub',v:'github.com/redwan95',href:D.github}
+  ].filter(r=>r.v).map(r=>`<div class="cr"${r.href?` onclick="window.open('${h(r.href)}','_blank')" style="cursor:pointer"`:''}>
+    <div class="cri"><span style="font-size:14px">${r.i}</span></div>
+    <div><div class="crl">${r.l}</div><div class="crv">${h(r.v)}</div></div>
+  </div>`).join('');
+  document.getElementById('FLINKS').innerHTML=[{lb:'LinkedIn',h:D.linkedin},{lb:'GitHub',h:D.github},{lb:'ResearchGate',h:D.researchgate}].filter(l=>l.h).map(l=>`<a href="${h(l.h)}" target="_blank" style="color:var(--t2)">${l.lb}</a>`).join('');
+}
+const catClr={'Dashboards':['rgba(0,212,160,0.1)','rgba(0,212,160,.25)','var(--a)'],'ML & Environmental':['rgba(79,156,249,0.1)','rgba(79,156,249,.25)','var(--a2)'],'Spatial Analysis':['rgba(167,139,250,0.1)','rgba(167,139,250,.25)','#a78bfa'],'Web Apps':['rgba(245,158,11,0.1)','rgba(245,158,11,.25)','#f59e0b']};
+function rProj(all,cat){
+  const items=cat==='All'?all:all.filter(p=>p.cat===cat);
+  document.getElementById('PGRID').innerHTML=items.map(p=>{
+    const cl=catClr[p.cat]||catClr['Dashboards'];
+    return`<div class="pc${p.featured?' feat':''}" id="pc-${p.id}">
+      <div class="pct">
+        <div class="pccat" style="background:${cl[0]};color:${cl[2]};border:1px solid ${cl[1]}">${h(p.cat)}</div>
+        <div class="pctit">${h(p.title)}</div>
+        <div class="pcd">${h(p.desc)}</div>
+        <div class="pcm">${(p.metrics||[]).map(m=>`<span class="pcmet">${h(m)}</span>`).join('')}</div>
+        <div class="pctags">${(p.tags||[]).map(t=>`<span class="pctag">${h(t)}</span>`).join('')}</div>
+        <div class="pcact">
+          ${p.viewUrl?`<a href="${h(p.viewUrl)}" target="_blank" class="pcbp">View Project</a>`:''}
+          ${p.embedUrl?`<button class="pcbg" onclick="tEmbed('${p.id}',this)">\u25b6 Live Preview</button>`:''}
+          ${p.storyMapUrl?`<a href="${h(p.storyMapUrl)}" target="_blank" class="pcbg">StoryMap</a>`:''}
+        </div>
+      </div>
+      ${p.embedUrl?`<div class="pce" id="pe-${p.id}"><div class="pef"><iframe src="${h(p.embedUrl)}" allowfullscreen loading="lazy" title="${h(p.title)}"></iframe></div></div>`:''}
+    </div>`;
+  }).join('');
+}
+function tEmbed(id,btn){const el=document.getElementById('pe-'+id);if(!el)return;const o=el.classList.toggle('open');btn.textContent=o?'\u25b2 Close Preview':'\u25b6 Live Preview'}
+function fProj(cat,btn){document.querySelectorAll('.ptab').forEach(b=>b.classList.remove('on'));btn.classList.add('on');rProj(gD().projects||[],cat)}
+function swSk(cat,btn){document.querySelectorAll('.skt').forEach(b=>b.classList.remove('on'));document.querySelectorAll('.skp').forEach(p=>p.classList.remove('on'));btn.classList.add('on');const p=document.getElementById('sp-'+cat);if(p){p.classList.add('on');setTimeout(aBars,100)}}
+function aBars(){document.querySelectorAll('.skp.on .skbf').forEach(el=>el.classList.add('an'))}
+function sendMsg(){const n=document.getElementById('cN').value,e=document.getElementById('cE').value,s=document.getElementById('cS').value,m=document.getElementById('cM').value;if(!n||!e||!m){notif('Please fill all fields.','e');return}window.open('mailto:'+gD().email+'?subject='+encodeURIComponent(s||'Portfolio Contact: '+n)+'&body='+encodeURIComponent('From: '+n+'\nEmail: '+e+'\n\n'+m));notif('Opening email client...','s')}
+function notif(msg,t){const el=document.createElement('div');el.className='notif';el.style.background=t==='s'?'rgba(16,185,129,.9)':'rgba(239,68,68,.9)';el.textContent=msg;document.body.appendChild(el);setTimeout(()=>el.remove(),3000)}
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');const id=e.target.id;if(id)document.querySelectorAll('.sbl').forEach(l=>l.classList.toggle('on',l.dataset.s===id));if(id==='skills-s')setTimeout(aBars,300)}})},{threshold:.15});
+render();
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+document.querySelectorAll('section[id]').forEach(s=>{const o2=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)document.querySelectorAll('.sbl').forEach(l=>l.classList.toggle('on',l.dataset.s===e.target.id))})},{threshold:.3});o2.observe(s)});
+</script>
+</body>
+</html>
