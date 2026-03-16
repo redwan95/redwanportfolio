@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Portfolio Admin — Redwan Kabir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07101f;--bg1:#0b1727;--bg2:#0f1d2e;--bg3:#132038;--bd:rgba(255,255,255,.08);--b2:rgba(0,212,160,.22);--a:#00d4a0;--a2:#4f9cf9;--a3:#f97316;--txt:#dce8f5;--t2:rgba(220,232,245,.65);--t3:rgba(220,232,245,.38);--ok:#10b981;--wn:#f59e0b;--er:#ef4444;--f:'Outfit',sans-serif;--d:'Syne',sans-serif;--r:8px;--r2:12px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--txt);font-family:var(--f);font-size:14px;line-height:1.6;overflow:hidden}
+a{color:var(--a);text-decoration:none}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:rgba(0,212,160,.2);border-radius:2px}
+
+/* LOGIN SCREEN */
+.login-screen{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:var(--bg);z-index:999;flex-direction:column;gap:0}
+.login-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(0,212,160,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,160,.022) 1px,transparent 1px);background-size:38px 38px}
+.login-card{position:relative;z-index:2;background:rgba(11,23,39,.95);border:1px solid var(--bd);border-radius:16px;padding:40px 36px;width:360px;text-align:center}
+.login-logo{width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,var(--a),var(--a2));display:flex;align-items:center;justify-content:center;font-family:var(--d);font-size:18px;font-weight:800;color:#07101f;margin:0 auto 20px}
+.login-title{font-family:var(--d);font-size:20px;font-weight:800;color:var(--txt);margin-bottom:4px}
+.login-sub{font-size:13px;color:var(--t2);margin-bottom:24px}
+.login-inp{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--bd);border-radius:var(--r);padding:11px 14px;color:var(--txt);font-size:14px;font-family:var(--f);outline:none;transition:border-color .15s;margin-bottom:10px}
+.login-inp:focus{border-color:var(--b2)}
+.login-btn{width:100%;padding:12px;border-radius:var(--r);background:linear-gradient(135deg,var(--a),var(--a2));color:#07101f;font-size:14px;font-weight:600;border:none;cursor:pointer;font-family:var(--f);margin-top:4px}
+.login-err{color:var(--er);font-size:12px;margin-top:8px;min-height:18px}
+.login-hint{font-size:11px;color:var(--t3);margin-top:14px;line-height:1.6}
+.setup-badge{display:inline-block;padding:3px 9px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);border-radius:99px;font-size:11px;color:var(--wn);margin-bottom:12px}
+
+/* ADMIN APP */
+.admin-app{display:flex;height:100vh}
+.sb{width:52px;min-width:52px;background:rgba(5,10,20,.98);border-right:1px solid var(--bd);display:flex;flex-direction:column;overflow:hidden;transition:width .26s cubic-bezier(.4,0,.2,1)}
+.sb:hover{width:200px}
+.sbl{padding:15px 13px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:10px;white-space:nowrap;overflow:hidden}
+.sb-ic{width:26px;height:26px;min-width:26px;border-radius:7px;background:linear-gradient(135deg,var(--a),var(--a2));display:flex;align-items:center;justify-content:center;font-family:var(--d);font-size:11px;font-weight:800;color:#060f1c}
+.sb-name{font-size:12px;font-weight:600;color:var(--txt);opacity:0;transition:opacity .12s .05s;white-space:nowrap}
+.sb:hover .sb-name{opacity:1}
+.snav{display:flex;flex-direction:column;padding:6px 0;flex:1;overflow-y:auto;overflow-x:hidden;gap:1px}
+.snl{font-size:9px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.1em;padding:6px 12px 2px;overflow:hidden}
+.sni{display:flex;align-items:center;gap:9px;padding:7px 10px;cursor:pointer;color:var(--t2);font-size:13px;font-weight:500;transition:all .15s;white-space:nowrap;overflow:hidden;border-left:2px solid transparent;border-radius:0 6px 6px 0;margin:0 4px 0 0}
+.sni:hover,.sni.on{background:rgba(0,212,160,.08);color:var(--a)}
+.sni.on{border-left-color:var(--a)}
+.sni .si{width:16px;min-width:16px;text-align:center;font-size:14px}
+.sni .sl{opacity:0;transition:opacity .12s .04s}
+.sb:hover .sl{opacity:1}
+.sb-bot{padding:6px 4px 12px;border-top:1px solid var(--bd)}
+.mn{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.tb{padding:10px 18px;border-bottom:1px solid var(--bd);background:var(--bg1);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.tbt{font-family:var(--d);font-size:14px;font-weight:700}
+.tbs{font-size:11px;color:var(--t2);margin-top:1px}
+.ct{flex:1;overflow-y:auto;padding:18px}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border-radius:var(--r);border:none;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--f);transition:all .14s}
+.btn-sm{padding:5px 10px;font-size:12px}.btn-xs{padding:3px 7px;font-size:11px}
+.bp{background:var(--a);color:#060f1c}.bp:hover{background:#00e6ad}
+.bs{background:var(--bg3);color:var(--txt);border:1px solid var(--bd)}.bs:hover{border-color:var(--b2)}
+.bd{background:rgba(239,68,68,.1);color:var(--er);border:1px solid rgba(239,68,68,.25)}
+.bg{background:none;color:var(--t2);border:1px solid var(--bd)}.bg:hover{color:var(--txt)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.card{background:var(--bg1);border:1px solid var(--bd);border-radius:var(--r2);padding:16px;margin-bottom:14px}
+.ctit{font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
+.fg{margin-bottom:11px}
+label{display:block;font-size:12px;color:var(--t2);font-weight:500;margin-bottom:4px}
+input,select,textarea{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--bd);border-radius:var(--r);padding:7px 10px;color:var(--txt);font-size:13px;font-family:var(--f);outline:none;transition:border-color .15s}
+input:focus,select:focus,textarea:focus{border-color:var(--b2)}
+textarea{resize:vertical}
+select{appearance:none}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.r3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.r4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:9px}
+.al{padding:10px 12px;border-radius:var(--r);font-size:13px;margin-bottom:11px}
+.as{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);color:#6ee7b7}
+.ae{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.25);color:#fca5a5}
+.ai{background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.25);color:#93c5fd}
+.aw{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);color:#fcd34d}
+.notif{position:fixed;bottom:20px;right:20px;padding:10px 16px;border-radius:var(--r);font-size:13px;color:#fff;z-index:9999;pointer-events:none;animation:ni .22s ease}
+@keyframes ni{from{transform:translateY(12px);opacity:0}to{transform:translateY(0);opacity:1}}
+.exp-c{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:13px;margin-bottom:9px}
+.proj-c{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:13px;margin-bottom:9px}
+.tag-inp-wrap{display:flex;flex-wrap:wrap;gap:3px;padding:6px 9px;background:rgba(255,255,255,.04);border:1px solid var(--bd);border-radius:var(--r);min-height:38px;align-items:center;cursor:text;transition:border-color .15s}
+.tag-inp-wrap:focus-within{border-color:var(--b2)}
+.pill{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;background:var(--bg3);border:1px solid var(--bd);border-radius:99px;font-size:12px;color:var(--t2);margin:1px}
+.pill-x{cursor:pointer;color:var(--t3);font-size:10px;margin-left:2px}.pill-x:hover{color:var(--er)}
+.tag-inner{background:none;border:none;outline:none;color:var(--txt);font-size:13px;font-family:var(--f);min-width:80px;flex:1;padding:1px}
+.img-wrap{position:relative;width:88px;height:88px;border-radius:50%;overflow:hidden;border:3px solid var(--b2);flex-shrink:0;cursor:pointer}
+.img-wrap img{width:100%;height:100%;object-fit:cover}
+.img-ph{width:100%;height:100%;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-family:var(--d);font-size:20px;font-weight:800;color:var(--a)}
+.img-ov{position:absolute;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .18s;font-size:20px}
+.img-wrap:hover .img-ov{opacity:1}
+.sk-row{display:flex;align-items:center;gap:7px;margin-bottom:7px;padding:8px;background:rgba(255,255,255,.025);border:1px solid var(--bd);border-radius:var(--r);flex-wrap:wrap}
+.spin{width:14px;height:14px;border:2px solid var(--bd);border-top-color:var(--a);border-radius:50%;animation:sp .7s linear infinite;flex-shrink:0}
+@keyframes sp{to{transform:rotate(360deg)}}
+.hidden{display:none!important}
+.section-title-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.section-title-inp{flex:1;font-family:var(--d);font-size:14px;font-weight:700;background:transparent;border:none;border-bottom:1px dashed var(--bd);padding:4px 0;color:var(--txt);outline:none}
+.section-title-inp:focus{border-bottom-color:var(--b2)}
+</style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-bg"></div>
+  <div class="login-card">
+    <div class="login-logo" id="loginLogo">RK</div>
+    <div class="login-title">Portfolio Admin</div>
+    <div class="login-sub" id="loginSubtitle">Sign in to manage your portfolio</div>
+    <div class="setup-badge hidden" id="setupBadge">&#9888; First-time setup</div>
+    <input type="password" class="login-inp" id="loginPass" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
+    <input type="password" class="login-inp hidden" id="loginConfirm" placeholder="Confirm password">
+    <button class="login-btn" onclick="doLogin()" id="loginBtn">Sign In</button>
+    <div class="login-err" id="loginErr"></div>
+    <div class="login-hint" id="loginHint">Only you have access to this admin panel.</div>
+  </div>
+</div>
+
+<!-- ADMIN APP (hidden until login) -->
+<div class="admin-app hidden" id="adminApp">
+<nav class="sb">
+  <div class="sbl">
+    <div class="sb-ic" id="sbIc">RK</div>
+    <div class="sb-name">Portfolio Admin</div>
+  </div>
+  <div class="snav">
+    <div class="snl">Content</div>
+    <div class="sni on" data-v="personal" onclick="gV('personal')"><span class="si">&#128100;</span><span class="sl">Personal Info</span></div>
+    <div class="sni" data-v="experience" onclick="gV('experience')"><span class="si">&#128198;</span><span class="sl">Experience</span></div>
+    <div class="sni" data-v="skills" onclick="gV('skills')"><span class="si">&#128295;</span><span class="sl">Skills</span></div>
+    <div class="sni" data-v="projects" onclick="gV('projects')"><span class="si">&#128193;</span><span class="sl">Projects</span></div>
+    <div class="sni" data-v="certs" onclick="gV('certs')"><span class="si">&#127941;</span><span class="sl">Certifications</span></div>
+    <div class="sni" data-v="pubs" onclick="gV('pubs')"><span class="si">&#128196;</span><span class="sl">Publications</span></div>
+    <div class="sni" data-v="awards" onclick="gV('awards')"><span class="si">&#127942;</span><span class="sl">Awards</span></div>
+    <div class="snl">Advanced</div>
+    <div class="sni" data-v="titles" onclick="gV('titles')"><span class="si">&#9998;</span><span class="sl">Section Titles</span></div>
+    <div class="sni" data-v="upload" onclick="gV('upload')"><span class="si">&#128196;</span><span class="sl">Resume Upload</span></div>
+    <div class="sni" data-v="seo" onclick="gV('seo')"><span class="si">&#128202;</span><span class="sl">SEO & Analytics</span></div>
+    <div class="sni" data-v="security" onclick="gV('security')"><span class="si">&#128274;</span><span class="sl">Security</span></div>
+    <div class="sni" data-v="export" onclick="gV('export')"><span class="si">&#128260;</span><span class="sl">Export / Reset</span></div>
+  </div>
+  <div class="sb-bot">
+    <div class="sni" onclick="window.open('index.html','_blank')" style="color:var(--a);border:1px solid rgba(0,212,160,.15);margin:0 4px;border-radius:6px">
+      <span class="si">&#128269;</span><span class="sl">View Portfolio</span>
+    </div>
+    <div class="sni" onclick="logout()" style="color:var(--t3);margin:0 4px">
+      <span class="si">&#x2190;</span><span class="sl">Log Out</span>
+    </div>
+  </div>
+</nav>
+<div class="mn">
+  <div class="tb">
+    <div><div class="tbt" id="pgT">Personal Info</div><div class="tbs" id="pgS">Edit name, contact, photo, about text</div></div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button class="btn bp" onclick="saveAll()">&#10003; Save</button>
+      <a href="index.html" target="_blank" style="display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border-radius:var(--r);background:linear-gradient(135deg,var(--a),var(--a2));color:#07101f;font-size:13px;font-weight:600;text-decoration:none">&#128269; Preview</a>
+    </div>
+  </div>
+  <div class="ct" id="CT"></div>
+</div>
+</div>
+
+<script>
+const K='pfv4';
+const HASH_KEY='pfv4_pwd';
+const SESSION_KEY='pfv4_session';
+const GROQ_KEY='pfv4_groq';
+
+async function sha256(s){const b=new TextEncoder().encode(s);const h=await crypto.subtle.digest('SHA-256',b);return Array.from(new Uint8Array(h)).map(b=>b.toString(16).padStart(2,'0')).join('')}
+
+// ===== AUTH =====
+function isSetup(){return !!localStorage.getItem(HASH_KEY)}
+function isLoggedIn(){const s=sessionStorage.getItem(SESSION_KEY);return s==='1'}
+
+function initLogin(){
+  const setup=!isSetup();
+  if(setup){
+    document.getElementById('setupBadge').classList.remove('hidden');
+    document.getElementById('loginConfirm').classList.remove('hidden');
+    document.getElementById('loginBtn').textContent='Set Password & Enter';
+    document.getElementById('loginSubtitle').textContent='Create your admin password';
+    document.getElementById('loginHint').textContent='Set a strong password. It will be hashed and stored locally. Cannot be recovered — keep it safe.';
+  }
+}
+
+async function doLogin(){
+  const pw=document.getElementById('loginPass').value;
+  const conf=document.getElementById('loginConfirm').value;
+  const err=document.getElementById('loginErr');
+  if(!pw){err.textContent='Enter a password.';return}
+  if(!isSetup()){
+    if(pw!==conf){err.textContent='Passwords do not match.';return}
+    if(pw.length<6){err.textContent='Minimum 6 characters.';return}
+    const hash=await sha256(pw);
+    localStorage.setItem(HASH_KEY,hash);
+    sessionStorage.setItem(SESSION_KEY,'1');
+    showAdmin();
+  } else {
+    const hash=await sha256(pw);
+    if(hash===localStorage.getItem(HASH_KEY)){
+      sessionStorage.setItem(SESSION_KEY,'1');
+      showAdmin();
+    } else {
+      err.textContent='Incorrect password.';
+      document.getElementById('loginPass').value='';
+    }
+  }
+}
+
+function logout(){sessionStorage.removeItem(SESSION_KEY);location.reload()}
+function showAdmin(){
+  document.getElementById('loginScreen').classList.add('hidden');
+  document.getElementById('adminApp').classList.remove('hidden');
+  gV('personal');
+  const D=gD();
+  const ic=document.getElementById('sbIc');
+  if(ic)ic.textContent=(D.name||'RK').split(' ').map(w=>w[0]).join('').slice(0,2);
+}
+if(isLoggedIn()){showAdmin()}else{initLogin()}
+
+// ===== DATA =====
+const DEF={name:"S M Redwan Kabir",title:"GIS Data Engineer | Spatial Data Analyst | Asset Management Professional",location:"Jefferson City, MO",email:"redwan.kuet@gmail.com",phone:"269-529-8790",linkedin:"https://www.linkedin.com/in/redwankabir95/",github:"https://github.com/redwan95",researchgate:"https://www.researchgate.net/profile/S-M-Redwan-Kabir",cvUrl:"assets/RedwanKabir_CV.pdf",profilePhoto:"",tags:["ArcGIS Pro","Python","SQL","Remote Sensing","ML","VueWorks","QGIS","GEE"],about:"GIS Specialist with 6+ years of proven expertise in enterprise geospatial data management, spatial analysis, Python/SQL automation, and land use/transportation planning. Proficient in ArcGIS Pro/Enterprise/Online, delivering data-driven maps, dashboards, and reports for government agencies and private organizations.",objective:"To leverage geospatial analytics, predictive modeling, and AI to advance infrastructure resilience and sustainable planning. Focus on modeling risks from extreme weather, transportation equity analysis, and data-driven decision-making tools for sustainable urban systems.",sectionTitles:{about:"Professional Background",skills:"Technical Expertise",projects:"Projects & Applications",certifications:"Professional Certifications",publications:"Publications & Research",awards:"Awards & Honors",contact:"Get In Touch"},stats:[{n:"6+",l:"Years Experience"},{n:"12",l:"Projects"},{n:"1,528",l:"km² Mapped"},{n:"3.94",l:"MS GPA"},{n:"5",l:"Publications"}],customAboutFields:[],experience:[{role:"GIS Technician",company:"Missouri Department of Conservation",location:"Jefferson City, MO",period:"Jul 2024 – Present",current:true,desc:"Asset tracking via VueWorks • QA/QC in ArcGIS Pro/Enterprise • SQL geodatabase analytics • Flood infrastructure mapping • Python/ModelBuilder automation (+35% productivity) • Survey123/Field Maps/Trimble R2 deployment • ArcGIS Dashboards & Experience Builder apps"},{role:"Graduate Research Assistant",company:"Western Michigan University",location:"Kalamazoo, MI",period:"Aug 2022 – Apr 2024",current:false,desc:"Urban Heat Island Project • Python/ArcPy pipelines • Landsat/MODIS LST analysis • ML socioeconomic models at census tract level • Quantile mapping (+18% accuracy) • National & international conference presentations"},{role:"Urban Planner",company:"Sheltech Consultants Pvt. Ltd.",location:"Dhaka, Bangladesh",period:"Dec 2017 – Jun 2022",current:false,desc:"Dhaka Master Plan 1,528 km² • ModelBuilder/Python tools (+60% productivity) • Transport/zoning impact assessments • Stakeholder presentations to government officials"}],education:[{degree:"MS in Geography",school:"Western Michigan University",location:"Kalamazoo, MI, USA",date:"Spring 2024",gpa:"3.94/4.00",icon:"🏛️"},{degree:"BURP (Urban & Regional Planning)",school:"Khulna University of Engineering & Technology",location:"Khulna, Bangladesh",date:"Spring 2017",gpa:"3.62/4.00",icon:"🏢"}],skills:{"GIS Tools":[{n:"ArcGIS Pro",s:"Enterprise desktop GIS",logo:"AG",c:"#00d4a0",bg:"rgba(0,212,160,0.12)"},{n:"ArcGIS Online",s:"Web mapping platform",logo:"AO",c:"#00d4a0",bg:"rgba(0,212,160,0.12)"},{n:"QGIS",s:"Open-source GIS",logo:"Q",c:"#97c45a",bg:"rgba(151,196,90,0.12)"},{n:"Dashboards",s:"Real-time ArcGIS apps",logo:"DB",c:"#00d4a0",bg:"rgba(0,212,160,0.12)"},{n:"Experience Builder",s:"Web app builder",logo:"EB",c:"#00d4a0",bg:"rgba(0,212,160,0.12)"},{n:"Field Maps",s:"Mobile data collection",logo:"FM",c:"#00d4a0",bg:"rgba(0,212,160,0.12)"},{n:"Survey123",s:"Form-based surveys",logo:"S1",c:"#00d4a0",bg:"rgba(0,212,160,0.12)"}],"Programming":[{n:"Python",s:"ArcPy, geopandas, pandas",logo:"Py",c:"#4f9cf9",bg:"rgba(79,156,249,0.12)"},{n:"SQL",s:"Geodatabase queries",logo:"SQL",c:"#4f9cf9",bg:"rgba(79,156,249,0.12)"},{n:"R",s:"Statistical analysis",logo:"R",c:"#4f9cf9",bg:"rgba(79,156,249,0.12)"},{n:"ArcPy",s:"ArcGIS scripting API",logo:"AP",c:"#00d4a0",bg:"rgba(0,212,160,0.12)"},{n:"ModelBuilder",s:"Visual workflow tool",logo:"MB",c:"#00d4a0",bg:"rgba(0,212,160,0.12)"}],"Remote Sensing":[{n:"Landsat 8/9",s:"30m multispectral",logo:"LS",c:"#f59e0b",bg:"rgba(245,158,11,0.12)"},{n:"MODIS",s:"Terra/Aqua daily",logo:"MOD",c:"#f59e0b",bg:"rgba(245,158,11,0.12)"},{n:"Sentinel-2",s:"10m multispectral",logo:"S2",c:"#f59e0b",bg:"rgba(245,158,11,0.12)"},{n:"Google Earth Engine",s:"Cloud RS platform",logo:"GEE",c:"#63a832",bg:"rgba(99,168,50,0.12)"}],"Data & Analytics":[{n:"Tableau",s:"Interactive dashboards",logo:"TB",c:"#a78bfa",bg:"rgba(167,139,250,0.12)"},{n:"Power BI",s:"Business intelligence",logo:"PBI",c:"#f59e0b",bg:"rgba(245,158,11,0.12)"},{n:"XGBoost / RF",s:"ML ensemble models",logo:"ML",c:"#a78bfa",bg:"rgba(167,139,250,0.12)"},{n:"VueWorks",s:"Asset management",logo:"VW",c:"#4f9cf9",bg:"rgba(79,156,249,0.12)"}]},projects:[{id:"p1",cat:"Dashboards",title:"Missouri Flood Monitoring Dashboard",desc:"Real-time flood indicators and spatial layers for Missouri Dept of Conservation.",metrics:["1,528 km² covered","State agency","Real-time"],tags:["ArcGIS Pro","Dashboards","SQL","Python"],viewUrl:"https://www.arcgis.com/apps/dashboards/f26e06c18ff24a1bab746fd4e24e8a9e",embedUrl:"https://www.arcgis.com/apps/dashboards/f26e06c18ff24a1bab746fd4e24e8a9e",featured:true},{id:"p2",cat:"Dashboards",title:"Real-time 911 Public Safety Dashboard",desc:"ArcGIS Dashboard with live 911 call data for Redlands County, CA.",metrics:["Live data","County-wide","Public safety"],tags:["ArcGIS Dashboards","Real-time"],viewUrl:"https://www.arcgis.com/apps/dashboards/9fcff794eb2f4ccba5b96f02944aeb19",embedUrl:"https://www.arcgis.com/apps/dashboards/9fcff794eb2f4ccba5b96f02944aeb19",featured:true},{id:"p3",cat:"ML & Environmental",title:"Chicago Urban Heat Island ML Analysis",desc:"ML pipeline for LST spatiotemporal patterns via Python, ArcPy, Landsat/MODIS.",metrics:["77 census tracts","18% accuracy gain"],tags:["Python","ArcPy","Landsat","XGBoost"],viewUrl:"https://github.com/redwan95/lst-ml-model",featured:true}],certifications:[{name:"Going Places with Spatial Analysis",issuer:"ESRI — 6-Week ILT",date:"Mar 2025",icon:"🗺️",bg:"rgba(0,212,160,0.1)",link:""},{name:"ArcGIS Online: Essential Workflows",issuer:"ESRI — 8-Hour ILT",date:"Dec 2024",icon:"🌐",bg:"rgba(79,156,249,0.1)"},{name:"Make an Impact with Modern Geo Apps",issuer:"ESRI — 4-Week ILT",date:"Oct 2024",icon:"📱",bg:"rgba(167,139,250,0.1)"}],publications:[{title:"Spatiotemporal Variability of Land Surface Temperature in Chicago, Illinois",venue:"Master's Thesis, WMU (2024)",desc:"Urban heat island dynamics using Landsat/MODIS and ML methods.",link:"https://scholarworks.wmich.edu/masters_theses/5402/"}],awards:[{title:"Student Travel Grant — Graduate College, WMU (Nov 2023)",link:"https://wmich.edu/grad/awards"},{title:"L. Harrison Graduate Tuition Scholarship (Full Waiver) — WMU (2022–2024)"}]};
+
+function gD(){try{const s=localStorage.getItem(K);return s?JSON.parse(s):JSON.parse(JSON.stringify(DEF))}catch(e){return JSON.parse(JSON.stringify(DEF))}}
+function sD(d){localStorage.setItem(K,JSON.stringify(d));return d}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,5)}
+function h(s){return(s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function notif(m,t){const el=document.createElement('div');el.className='notif';el.style.background=t==='e'?'rgba(239,68,68,.9)':t==='i'?'rgba(59,130,246,.9)':'rgba(16,185,129,.9)';el.textContent=m;document.body.appendChild(el);setTimeout(()=>el.remove(),3000)}
+
+const VM={personal:{t:'Personal Info',s:'Edit name, contact, photo, tags and about text'},experience:{t:'Work Experience & Education',s:'Edit positions and education entries'},skills:{t:'Technical Skills',s:'Edit skill categories with logos and descriptions'},projects:{t:'Projects & Applications',s:'Add, edit, reorder projects with metrics'},certs:{t:'Certifications',s:'ESRI and professional certifications'},pubs:{t:'Publications & Research',s:'Academic publications and manuscripts'},awards:{t:'Awards & Honors',s:'Scholarships and recognitions'},titles:{t:'Section Titles & Subtitles',s:'Edit every section heading and subtitle'},upload:{t:'Resume Upload & AI Parse',s:'Auto-extract profile from PDF/TXT resume'},seo:{t:'SEO & Analytics',s:'Google Analytics and meta settings'},security:{t:'Security & Password',s:'Change admin password'},export:{t:'Export & Reset',s:'Backup, restore, reset portfolio data'}};
+let cV='personal';
+function gV(v){cV=v;document.querySelectorAll('.sni').forEach(el=>el.classList.toggle('on',el.dataset.v===v));const m=VM[v]||VM.personal;document.getElementById('pgT').textContent=m.t;document.getElementById('pgS').textContent=m.s;document.getElementById('CT').innerHTML='';({personal:vPersonal,experience:vExp,skills:vSkills,projects:vProjects,certs:vCerts,pubs:vPubs,awards:vAwards,titles:vTitles,upload:vUpload,seo:vSeo,security:vSecurity,export:vExport}[v]||vPersonal)(document.getElementById('CT'))}
+function saveAll(){const saves={personal:sPersonal,experience:sExp,skills:sSkills,projects:sProjs,certs:sCerts,pubs:sPubs,awards:sAwards,titles:sTitles,seo:sSeo};if(saves[cV])saves[cV]();notif('Saved! Reload portfolio to see changes.','s')}
+
+// ===== PERSONAL =====
+function vPersonal(el){
+  const D=gD();
+  el.innerHTML=`<div class="card">
+    <div class="ctit">Profile Photo</div>
+    <div style="display:flex;align-items:center;gap:18px;margin-bottom:6px">
+      <div class="img-wrap" onclick="document.getElementById('phInp').click()">
+        ${D.profilePhoto?`<img src="${h(D.profilePhoto)}">`:`<div class="img-ph">${h((D.name||'RK').split(' ').map(w=>w[0]).slice(0,2).join(''))}</div>`}
+        <div class="img-ov">&#128247;</div>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:3px">Upload Photo</div>
+        <div style="font-size:12px;color:var(--t2);margin-bottom:8px">JPG/PNG, max 2MB. Stored in browser.</div>
+        <input type="file" id="phInp" accept="image/*" style="display:none" onchange="handlePhoto(this)">
+        <button class="btn btn-sm bs" onclick="document.getElementById('phInp').click()">Choose File</button>
+        ${D.profilePhoto?'<button class="btn btn-sm bd" style="margin-left:7px" onclick="clrPhoto()">Remove</button>':''}
+        <div style="margin-top:8px"><label>Or paste image URL</label><input type="text" id="photoUrl" placeholder="https://.../photo.jpg"></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ctit">Personal Information</div>
+    <div class="r2 fg"><div><label>Full Name</label><input id="pN" value="${h(D.name)}"></div><div><label>Professional Title</label><input id="pT" value="${h(D.title)}"></div></div>
+    <div class="r3 fg"><div><label>Location</label><input id="pL" value="${h(D.location)}"></div><div><label>Email</label><input type="email" id="pE" value="${h(D.email)}"></div><div><label>Phone</label><input id="pPh" value="${h(D.phone)}"></div></div>
+    <div class="r3 fg"><div><label>LinkedIn URL</label><input id="pLI" value="${h(D.linkedin)}"></div><div><label>GitHub URL</label><input id="pGH" value="${h(D.github)}"></div><div><label>ResearchGate URL</label><input id="pRG" value="${h(D.researchgate)}"></div></div>
+    <div class="fg"><label>Resume/CV URL</label><input id="pCV" value="${h(D.cvUrl)}" placeholder="assets/RedwanKabir_CV.pdf"></div>
+  </div>
+  <div class="card">
+    <div class="ctit">About Text</div>
+    <div class="fg"><label>Professional Summary</label><textarea id="pAb" style="min-height:80px">${h(D.about)}</textarea></div>
+    <div class="fg"><label>Research Objective</label><textarea id="pObj" style="min-height:80px">${h(D.objective)}</textarea></div>
+    <div class="ctit" style="margin-top:14px">Custom About Fields (add/remove extra paragraphs)</div>
+    <div id="customFields">${renderCustomFields(D.customAboutFields||[])}</div>
+    <button class="btn btn-sm bs" style="margin-top:7px" onclick="addCustomField()">+ Add Custom Section</button>
+  </div>
+  <div class="card">
+    <div class="ctit">Hero Tags (Enter to add)</div>
+    <div class="tag-inp-wrap" onclick="document.getElementById('tagI').focus()">
+      <span id="tagPills">${(D.tags||[]).map(t=>`<span class="pill">${h(t)}<span class="pill-x" onclick="rmTag('${h(t)}')">x</span></span>`).join('')}</span>
+      <input class="tag-inner" id="tagI" placeholder="Add tag..." onkeydown="if(event.key==='Enter'){addTag(this.value);this.value=''}">
+    </div>
+  </div>
+  <div class="card">
+    <div class="ctit">Stats Bar</div>
+    <div id="statsEd">${renderStats(D.stats||[])}</div>
+    <button class="btn btn-sm bs" style="margin-top:7px" onclick="addStat()">+ Add Stat</button>
+  </div>`;
+}
+function renderCustomFields(fields){return fields.map((f,i)=>`<div class="exp-c" style="margin-bottom:8px">
+  <div class="r2 fg"><div><label>Section Title</label><input id="cft${i}" value="${h(f.title)}" placeholder="Additional Information"></div><div style="display:flex;align-items:flex-end;gap:7px"><div style="flex:1"><label>Order</label><input type="number" id="cfo${i}" value="${i}" style="width:60px"></div><button class="btn btn-xs bd" style="margin-bottom:1px" onclick="rmCustomField(${i})">Remove</button></div></div>
+  <div class="fg"><label>Content</label><textarea id="cfc${i}" style="min-height:70px">${h(f.content)}</textarea></div>
+</div>`).join('')}
+function renderStats(stats){return stats.map((s,i)=>`<div style="display:flex;gap:8px;margin-bottom:7px;align-items:center">
+  <input id="sn${i}" value="${h(s.n)}" placeholder="6+" style="width:70px">
+  <input id="sl${i}" value="${h(s.l)}" placeholder="Years Experience" style="flex:1">
+  <button class="btn btn-xs bd" onclick="rmStat(${i})">x</button>
+</div>`).join('')}
+function addStat(){const D=gD();D.stats.push({n:'',l:''});sD(D);const el=document.getElementById('statsEd');if(el)el.innerHTML=renderStats(D.stats)}
+function rmStat(i){const D=gD();D.stats.splice(i,1);sD(D);const el=document.getElementById('statsEd');if(el)el.innerHTML=renderStats(D.stats)}
+function addCustomField(){const D=gD();(D.customAboutFields=D.customAboutFields||[]).push({title:'Custom Section',content:''});sD(D);const el=document.getElementById('customFields');if(el)el.innerHTML=renderCustomFields(D.customAboutFields)}
+function rmCustomField(i){const D=gD();D.customAboutFields.splice(i,1);sD(D);const el=document.getElementById('customFields');if(el)el.innerHTML=renderCustomFields(D.customAboutFields)}
+function addTag(v){v=v.trim();if(!v)return;const D=gD();if(!D.tags.includes(v)){D.tags.push(v);sD(D)}const sp=document.getElementById('tagPills');const inp=document.getElementById('tagI');if(sp&&inp){const s=document.createElement('span');s.className='pill';s.innerHTML=`${h(v)}<span class="pill-x" onclick="rmTag('${h(v)}')">x</span>`;sp.appendChild(s)}}
+function rmTag(v){const D=gD();D.tags=D.tags.filter(t=>t!==v);sD(D);const sp=document.getElementById('tagPills');if(sp)sp.innerHTML=(D.tags||[]).map(t=>`<span class="pill">${h(t)}<span class="pill-x" onclick="rmTag('${h(t)}')">x</span></span>`).join('')}
+function handlePhoto(inp){const f=inp.files[0];if(!f)return;if(f.size>2097152){notif('Max 2MB','e');return}const r=new FileReader();r.onload=e=>{const D=gD();D.profilePhoto=e.target.result;sD(D);notif('Photo updated!','s');gV('personal')};r.readAsDataURL(f)}
+function clrPhoto(){const D=gD();D.profilePhoto='';sD(D);gV('personal')}
+function sPersonal(){const D=gD();
+  const v=id=>document.getElementById(id)?.value;
+  ['pN:name','pT:title','pL:location','pE:email','pPh:phone','pLI:linkedin','pGH:github','pRG:researchgate','pCV:cvUrl','pAb:about','pObj:objective'].forEach(p=>{const[id,k]=p.split(':');const val=v(id);if(val!==undefined)D[k]=val});
+  const pu=v('photoUrl');if(pu&&pu.trim())D.profilePhoto=pu.trim();
+  const stats=[];for(let i=0;document.getElementById('sn'+i);i++){const n=v('sn'+i),l=v('sl'+i);if(n||l)stats.push({n:n||'',l:l||''})}
+  if(stats.length)D.stats=stats;
+  const cf=[];for(let i=0;document.getElementById('cft'+i);i++){const t=v('cft'+i),c=v('cfc'+i);if(t)cf.push({title:t,content:c||''})}
+  D.customAboutFields=cf;
+  sD(D);
+}
+
+// ===== EXPERIENCE =====
+function vExp(el){
+  const D=gD();
+  el.innerHTML=`<div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <div class="ctit" style="margin:0">Work Experience (${(D.experience||[]).length})</div>
+      <button class="btn btn-sm bp" onclick="addExp()">+ Add Position</button>
+    </div>
+    <div id="expList">${rExpList(D.experience||[])}</div>
+  </div>
+  <div class="card" style="margin-top:12px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <div class="ctit" style="margin:0">Education (${(D.education||[]).length})</div>
+      <button class="btn btn-sm bp" onclick="addEdu()">+ Add Education</button>
+    </div>
+    <div id="eduList">${rEduList(D.education||[])}</div>
+  </div>`;
+}
+function rExpList(exp){return exp.map((e,i)=>`<div class="exp-c">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+    <div style="flex:1;font-size:13px;font-weight:600">${h(e.role)}</div>
+    <span style="font-size:11px;color:var(--a)">${h(e.company)}</span>
+    <button class="btn btn-xs bs" onclick="tExp(${i})">Edit</button>
+    <button class="btn btn-xs bd" onclick="dExp(${i})">Del</button>
+    ${i>0?`<button class="btn btn-xs bg" onclick="mvExp(${i},-1)">&#8593;</button>`:''}
+    ${i<exp.length-1?`<button class="btn btn-xs bg" onclick="mvExp(${i},1)">&#8595;</button>`:''}
+  </div>
+  <div id="ee${i}" class="hidden" style="margin-top:10px">
+    <div class="r3 fg"><div><label>Role</label><input id="er${i}" value="${h(e.role)}"></div><div><label>Company</label><input id="eco${i}" value="${h(e.company)}"></div><div><label>Location</label><input id="el${i}" value="${h(e.location)}"></div></div>
+    <div class="r2 fg"><div><label>Period</label><input id="ep${i}" value="${h(e.period)}" placeholder="Jul 2024 – Present"></div><div><label>Current?</label><select id="ec${i}"><option value="1"${e.current?' selected':''}>Yes (Current)</option><option value="0"${!e.current?' selected':''}>No</option></select></div></div>
+    <div class="fg"><label>Description (use • for bullets)</label><textarea id="ed${i}" style="min-height:80px">${h(e.desc)}</textarea></div>
+    <button class="btn btn-sm bp" onclick="svExp(${i})">Save</button>
+  </div>
+</div>`).join('')}
+function rEduList(edu){return edu.map((e,i)=>`<div class="exp-c">
+  <div class="r2 fg"><div><label>Degree</label><input id="dd${i}" value="${h(e.degree)}"></div><div><label>School</label><input id="ds${i}" value="${h(e.school)}"></div></div>
+  <div class="r3 fg"><div><label>Location</label><input id="dl${i}" value="${h(e.location)}"></div><div><label>Date</label><input id="dt${i}" value="${h(e.date)}"></div><div><label>GPA</label><input id="dg${i}" value="${h(e.gpa)}"></div></div>
+  <div class="r2 fg"><div><label>Icon (emoji)</label><input id="di${i}" value="${h(e.icon||'')}"></div></div>
+  <div style="display:flex;gap:7px"><button class="btn btn-sm bp" onclick="svEdu(${i})">Save</button><button class="btn btn-sm bd" onclick="dEdu(${i})">Delete</button></div>
+</div>`).join('')}
+function tExp(i){document.getElementById('ee'+i)?.classList.toggle('hidden')}
+function svExp(i){const D=gD();const e=D.experience[i]||{};const v=id=>document.getElementById(id)?.value;e.role=v('er'+i)||e.role;e.company=v('eco'+i)||e.company;e.location=v('el'+i)||e.location;e.period=v('ep'+i)||e.period;e.desc=v('ed'+i)||e.desc;e.current=document.getElementById('ec'+i)?.value==='1';D.experience[i]=e;sD(D);notif('Saved!','s');vExp(document.getElementById('CT'))}
+function addExp(){const D=gD();D.experience.push({role:'New Position',company:'Company',location:'',period:'',current:true,desc:''});sD(D);vExp(document.getElementById('CT'))}
+function dExp(i){if(!confirm('Delete?'))return;const D=gD();D.experience.splice(i,1);sD(D);vExp(document.getElementById('CT'))}
+function mvExp(i,d){const D=gD();if(i+d<0||i+d>=D.experience.length)return;[D.experience[i],D.experience[i+d]]=[D.experience[i+d],D.experience[i]];sD(D);vExp(document.getElementById('CT'))}
+function svEdu(i){const D=gD();const e=D.education[i]||{};const v=id=>document.getElementById(id)?.value;e.degree=v('dd'+i)||e.degree;e.school=v('ds'+i)||e.school;e.location=v('dl'+i)||e.location;e.date=v('dt'+i)||e.date;e.gpa=v('dg'+i)||e.gpa;e.icon=v('di'+i)||e.icon;D.education[i]=e;sD(D);notif('Saved!','s')}
+function addEdu(){const D=gD();D.education.push({degree:'',school:'',location:'',date:'',gpa:'',icon:'🏛️'});sD(D);vExp(document.getElementById('CT'))}
+function dEdu(i){if(!confirm('Delete?'))return;const D=gD();D.education.splice(i,1);sD(D);vExp(document.getElementById('CT'))}
+function sExp(){const D=gD();sD(D)}
+
+// ===== SKILLS =====
+function vSkills(el){
+  const D=gD();const cats=Object.keys(D.skills||{});
+  el.innerHTML=`<div class="al ai">Each skill has: Name, Short description, Logo text (2-3 chars), Color (hex), Background color (rgba). Add or remove entire categories.</div>
+  <div id="skCats">${cats.map(c=>rSkCat(c,D.skills[c]||[])).join('')}</div>
+  <div style="display:flex;gap:8px;align-items:center;margin-top:10px">
+    <input id="newCat" placeholder="New category name" style="max-width:220px">
+    <button class="btn bp" onclick="addSkCat()">+ Add Category</button>
+  </div>`;
+}
+function rSkCat(cat,items){const safe=cat.replace(/[^a-z0-9]/gi,'_');return`<div class="card" style="margin-bottom:10px">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+    <div style="font-size:13px;font-weight:600;color:var(--txt);flex:1">${h(cat)}</div>
+    <button class="btn btn-xs bp" onclick="addSk('${h(cat)}')">+ Skill</button>
+    <button class="btn btn-xs bd" onclick="dSkCat('${h(cat)}')">Del Category</button>
+  </div>
+  <div id="si-${safe}">${items.map((it,i)=>`<div class="sk-row">
+    <input value="${h(it.n||it)}" placeholder="Name" style="flex:2;min-width:100px" onchange="uSk('${h(cat)}',${i},'n',this.value)">
+    <input value="${h(it.s||'')}" placeholder="Short desc" style="flex:3;min-width:100px" onchange="uSk('${h(cat)}',${i},'s',this.value)">
+    <input value="${h(it.logo||'')}" placeholder="Logo" style="width:52px" onchange="uSk('${h(cat)}',${i},'logo',this.value)">
+    <input type="color" value="${it.c||'#00d4a0'}" style="width:36px;height:32px;padding:2px" onchange="uSk('${h(cat)}',${i},'c',this.value)">
+    <button class="btn btn-xs bd" onclick="dSk('${h(cat)}',${i})">x</button>
+  </div>`).join('')}</div>
+</div>`}
+function uSk(cat,i,key,val){const D=gD();if(!D.skills[cat])return;const it=D.skills[cat][i];if(typeof it==='string')D.skills[cat][i]={n:it};D.skills[cat][i][key]=val;sD(D)}
+function addSk(cat){const D=gD();(D.skills[cat]=D.skills[cat]||[]).push({n:'New Skill',s:'',logo:'??',c:'#00d4a0',bg:'rgba(0,212,160,0.12)'});sD(D);vSkills(document.getElementById('CT'))}
+function dSk(cat,i){const D=gD();D.skills[cat].splice(i,1);sD(D);vSkills(document.getElementById('CT'))}
+function addSkCat(){const n=document.getElementById('newCat')?.value?.trim();if(!n)return;const D=gD();if(!D.skills[n])D.skills[n]=[];sD(D);vSkills(document.getElementById('CT'))}
+function dSkCat(cat){if(!confirm('Delete "'+cat+'"?'))return;const D=gD();delete D.skills[cat];sD(D);vSkills(document.getElementById('CT'))}
+function sSkills(){const D=gD();sD(D)}
+
+// ===== PROJECTS =====
+function vProjects(el){
+  const D=gD();
+  el.innerHTML=`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+    <div style="font-size:13px;color:var(--t2)">${(D.projects||[]).length} projects</div>
+    <button class="btn bp" onclick="addProj()">+ Add Project</button>
+  </div>
+  <div id="projList">${rProjList(D.projects||[])}</div>`;
+}
+function rProjList(projs){return projs.map((p,i)=>`<div class="proj-c">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">
+    <div style="flex:1;font-size:13px;font-weight:600">${h(p.title)}</div>
+    <span style="font-size:11px;color:var(--a)">${h(p.cat)}</span>
+    <button class="btn btn-xs bs" onclick="tProj(${i})">Edit</button>
+    <button class="btn btn-xs bd" onclick="dProj(${i})">Del</button>
+  </div>
+  <div id="pje${i}" class="hidden" style="margin-top:9px">
+    <div class="r2 fg"><div><label>Title</label><input id="pjt${i}" value="${h(p.title)}"></div><div><label>Category</label><input id="pjc${i}" value="${h(p.cat)}" placeholder="Dashboards, ML & Environmental, Spatial Analysis, Web Apps"></div></div>
+    <div class="fg"><label>Description</label><textarea id="pjd${i}" style="min-height:65px">${h(p.desc)}</textarea></div>
+    <div class="fg"><label>Metrics (comma-separated)</label><input id="pjm${i}" value="${h((p.metrics||[]).join(', '))}"></div>
+    <div class="fg"><label>Tech Tags (comma-separated)</label><input id="pjg${i}" value="${h((p.tags||[]).join(', '))}"></div>
+    <div class="r2 fg"><div><label>View/GitHub URL</label><input id="pjv${i}" value="${h(p.viewUrl||'')}"></div><div><label>Embed URL (ArcGIS/Streamlit)</label><input id="pje2${i}" value="${h(p.embedUrl||'')}"></div></div>
+    <div class="r2 fg"><div><label>StoryMap URL (optional)</label><input id="pjs${i}" value="${h(p.storyMapUrl||'')}"></div><div><label>Featured?</label><select id="pjf${i}"><option value="1"${p.featured?' selected':''}>Yes</option><option value="0"${!p.featured?' selected':''}>No</option></select></div></div>
+    <button class="btn btn-sm bp" onclick="svProj(${i})">Save Project</button>
+  </div>
+</div>`).join('')}
+function tProj(i){document.getElementById('pje'+i)?.classList.toggle('hidden')}
+function svProj(i){const D=gD();const p=D.projects[i]||{id:uid()};const v=id=>document.getElementById(id)?.value;p.title=v('pjt'+i)||p.title;p.cat=v('pjc'+i)||p.cat;p.desc=v('pjd'+i)||p.desc;p.metrics=(v('pjm'+i)||'').split(',').map(s=>s.trim()).filter(Boolean);p.tags=(v('pjg'+i)||'').split(',').map(s=>s.trim()).filter(Boolean);p.viewUrl=v('pjv'+i)||'';p.embedUrl=v('pje2'+i)||'';p.storyMapUrl=v('pjs'+i)||'';p.featured=document.getElementById('pjf'+i)?.value==='1';D.projects[i]=p;sD(D);notif('Saved!','s');vProjects(document.getElementById('CT'))}
+function addProj(){const D=gD();D.projects.push({id:uid(),cat:'Spatial Analysis',title:'New Project',desc:'',metrics:[],tags:[],viewUrl:'',featured:false});sD(D);vProjects(document.getElementById('CT'))}
+function dProj(i){if(!confirm('Delete?'))return;const D=gD();D.projects.splice(i,1);sD(D);vProjects(document.getElementById('CT'))}
+function sProjs(){const D=gD();sD(D)}
+
+// ===== CERTS =====
+function vCerts(el){
+  const D=gD();
+  el.innerHTML=`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+    <div style="font-size:13px;color:var(--t2)">${(D.certifications||[]).length} certifications</div>
+    <button class="btn bp" onclick="addCert()">+ Add</button>
+  </div>
+  <div id="certList">${rCertList(D.certifications||[])}</div>`;
+}
+function rCertList(certs){return certs.map((c,i)=>`<div class="exp-c">
+  <div class="r3 fg"><div><label>Name</label><input id="cn${i}" value="${h(c.name)}"></div><div><label>Issuer</label><input id="cis${i}" value="${h(c.issuer||'')}"></div><div><label>Date</label><input id="cd${i}" value="${h(c.date||'')}"></div></div>
+  <div class="r2 fg"><div><label>Icon (emoji)</label><input id="ci${i}" value="${h(c.icon||'')}"></div><div><label>Link (optional)</label><input id="cl${i}" value="${h(c.link||'')}"></div></div>
+  <div style="display:flex;gap:7px"><button class="btn btn-sm bp" onclick="svCert(${i})">Save</button><button class="btn btn-sm bd" onclick="dCert(${i})">Delete</button></div>
+</div>`).join('')}
+function svCert(i){const D=gD();const c=D.certifications[i]||{};const v=id=>document.getElementById(id)?.value;c.name=v('cn'+i)||c.name;c.issuer=v('cis'+i)||'';c.date=v('cd'+i)||'';c.icon=v('ci'+i)||'';c.link=v('cl'+i)||'';D.certifications[i]=c;sD(D);notif('Saved!','s')}
+function addCert(){const D=gD();D.certifications.push({name:'',issuer:'ESRI',date:'',icon:'🏅',bg:'rgba(0,212,160,0.1)'});sD(D);vCerts(document.getElementById('CT'))}
+function dCert(i){if(!confirm('Delete?'))return;const D=gD();D.certifications.splice(i,1);sD(D);vCerts(document.getElementById('CT'))}
+function sCerts(){const D=gD();sD(D)}
+
+// ===== PUBS =====
+function vPubs(el){
+  const D=gD();
+  el.innerHTML=`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+    <button class="btn bp" onclick="addPub()">+ Add Publication</button>
+  </div>
+  <div id="pubList">${rPubList(D.publications||[])}</div>`;
+}
+function rPubList(pubs){return pubs.map((p,i)=>`<div class="exp-c">
+  <div class="r2 fg"><div><label>Title</label><input id="pubt${i}" value="${h(p.title)}"></div><div><label>Venue / Journal</label><input id="pubv${i}" value="${h(p.venue||'')}"></div></div>
+  <div class="r2 fg"><div><label>Short Description</label><input id="pubd${i}" value="${h(p.desc||'')}"></div><div><label>Link (optional)</label><input id="publ${i}" value="${h(p.link||'')}"></div></div>
+  <div style="display:flex;gap:7px"><button class="btn btn-sm bp" onclick="svPub(${i})">Save</button><button class="btn btn-sm bd" onclick="dPub(${i})">Delete</button></div>
+</div>`).join('')}
+function svPub(i){const D=gD();const p=D.publications[i]||{};const v=id=>document.getElementById(id)?.value;p.title=v('pubt'+i)||p.title;p.venue=v('pubv'+i)||'';p.desc=v('pubd'+i)||'';p.link=v('publ'+i)||'';D.publications[i]=p;sD(D);notif('Saved!','s')}
+function addPub(){const D=gD();D.publications.push({title:'',venue:'',desc:'',link:''});sD(D);vPubs(document.getElementById('CT'))}
+function dPub(i){if(!confirm('Delete?'))return;const D=gD();D.publications.splice(i,1);sD(D);vPubs(document.getElementById('CT'))}
+function sPubs(){const D=gD();sD(D)}
+
+// ===== AWARDS =====
+function vAwards(el){
+  const D=gD();
+  el.innerHTML=`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+    <button class="btn bp" onclick="addAward()">+ Add Award</button>
+  </div>
+  <div id="awardList">${rAwardList(D.awards||[])}</div>`;
+}
+function rAwardList(awards){return awards.map((a,i)=>`<div class="exp-c">
+  <div class="r2 fg"><div><label>Award Title</label><input id="at${i}" value="${h(a.title)}"></div><div><label>Link (optional)</label><input id="al${i}" value="${h(a.link||'')}"></div></div>
+  <div style="display:flex;gap:7px"><button class="btn btn-sm bp" onclick="svAward(${i})">Save</button><button class="btn btn-sm bd" onclick="dAward(${i})">Delete</button></div>
+</div>`).join('')}
+function svAward(i){const D=gD();const a=D.awards[i]||{};a.title=document.getElementById('at'+i)?.value||a.title;a.link=document.getElementById('al'+i)?.value||'';D.awards[i]=a;sD(D);notif('Saved!','s')}
+function addAward(){const D=gD();D.awards.push({title:'',link:''});sD(D);vAwards(document.getElementById('CT'))}
+function dAward(i){if(!confirm('Delete?'))return;const D=gD();D.awards.splice(i,1);sD(D);vAwards(document.getElementById('CT'))}
+function sAwards(){const D=gD();sD(D)}
+
+// ===== SECTION TITLES =====
+function vTitles(el){
+  const D=gD();const st=D.sectionTitles||{};
+  const DEF_SUBS={about:'GIS analyst with 6+ years of enterprise geospatial expertise',skills:'Click a category to explore tools and technologies',projects:'Live dashboards, spatial analysis, and ML applications',certifications:'',publications:'',awards:'',contact:'Open to new opportunities and collaborations'};
+  el.innerHTML=`<div class="card">
+    <div class="ctit">Section Headings — All Editable</div>
+    <div class="al ai" style="margin-bottom:14px">Every section title is editable. Changes reflect immediately on the portfolio page.</div>
+    ${['about','skills','projects','certifications','publications','awards','contact'].map(k=>`<div class="r2 fg">
+      <div><label>${k.charAt(0).toUpperCase()+k.slice(1)} — Section Title</label><input id="st_${k}" value="${h(st[k]||(DEF.sectionTitles||{})[k]||'')}"></div>
+      <div><label>Subtitle (optional)</label><input id="ss_${k}" value="${h((D.sectionSubs||{})[k]||DEF_SUBS[k]||'')}"></div>
+    </div>`).join('')}
+    <button class="btn bp" onclick="sTitles()">Save All Titles</button>
+  </div>`;
+}
+function sTitles(){const D=gD();D.sectionTitles=D.sectionTitles||{};D.sectionSubs=D.sectionSubs||{};['about','skills','projects','certifications','publications','awards','contact'].forEach(k=>{const t=document.getElementById('st_'+k)?.value;const s=document.getElementById('ss_'+k)?.value;if(t!==undefined)D.sectionTitles[k]=t;if(s!==undefined)D.sectionSubs[k]=s});sD(D);notif('Titles saved!','s')}
+
+// ===== UPLOAD =====
+function vUpload(el){
+  el.innerHTML=`<div class="card">
+    <div class="ctit">Groq API Key (Free — no billing)</div>
+    <div class="fg"><label>Get free key at console.groq.com (sign in with Google)</label><input type="password" id="groqK" value="${h(localStorage.getItem(GROQ_KEY)||'')}"></div>
+    <button class="btn bp" onclick="saveGroq()">Save Key</button>
+    <div style="font-size:11px;color:var(--t3);margin-top:6px">Stored locally. Used only for AI resume parsing.</div>
+  </div>
+  <div class="card">
+    <div class="ctit">Upload Resume (PDF or TXT)</div>
+    <div class="fg"><input type="file" id="rfInp" accept=".pdf,.txt" style="padding:5px"></div>
+    <div id="upStatus"></div>
+    <button class="btn bp" onclick="parseResume()" id="parseBtn">Parse & Update All Profile Sections</button>
+  </div>
+  <div class="card">
+    <div class="ctit">After Parsing — Review & Save</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px">
+      ${['personal','experience','skills','projects','certs'].map(v=>`<button class="btn bs" onclick="gV('${v}')">Review ${v.charAt(0).toUpperCase()+v.slice(1)}</button>`).join('')}
+    </div>
+  </div>`;
+}
+function saveGroq(){const k=document.getElementById('groqK')?.value?.trim();if(k){localStorage.setItem(GROQ_KEY,k);notif('Groq key saved!','s')}else{localStorage.removeItem(GROQ_KEY);notif('Key cleared.','i')}}
+async function parseResume(){
+  const f=document.getElementById('rfInp')?.files[0];
+  if(!f){notif('Choose a file first.','e');return}
+  const key=localStorage.getItem(GROQ_KEY);
+  if(!key){notif('Add Groq API key first.','e');return}
+  const status=document.getElementById('upStatus');
+  const btn=document.getElementById('parseBtn');
+  if(btn)btn.disabled=true;
+  status.innerHTML='<div class="al ai" style="display:flex;gap:8px;align-items:center"><div class="spin"></div>Reading file...</div>';
+  try{
+    const txt=await new Promise((res,rej)=>{const r=new FileReader();r.onload=e=>{let c=e.target.result;if(typeof c!=='string'){const b=new Uint8Array(c);const a=[];for(let i=0;i<b.length;i++){const ch=b[i];if((ch>=32&&ch<127)||ch===10||ch===13)a.push(String.fromCharCode(ch))}c=a.join('').replace(/\s{3,}/g,'\n')}res(c.slice(0,7000))};r.onerror=rej;f.type==='text/plain'?r.readAsText(f):r.readAsArrayBuffer(f)});
+    status.innerHTML='<div class="al ai">AI parsing (10-20 sec)...</div>';
+    const prompt=`Extract ALL professional information from this resume. Return ONLY valid JSON, no markdown:\n{"name":"","title":"","email":"","phone":"","location":"","summary":"","objective":"","experience":[{"role":"","company":"","location":"","period":"","current":false,"desc":""}],"education":[{"degree":"","school":"","location":"","date":"","gpa":"","icon":"🏛️"}],"certifications":[{"name":"","issuer":"","date":"","icon":"🏅","bg":"rgba(0,212,160,0.1)"}],"publications":[{"title":"","venue":"","desc":"","link":""}],"awards":[{"title":"","link":""}]}\n\nRESUME:\n${txt}`;
+    const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},body:JSON.stringify({model:'llama-3.1-70b-versatile',messages:[{role:'user',content:prompt}],temperature:0.3,max_tokens:5000})});
+    if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e?.error?.message||'Groq error '+r.status)}
+    const d=await r.json();
+    const raw=d?.choices?.[0]?.message?.content||'';
+    const cl=raw.replace(/```json\s*/g,'').replace(/```\s*/g,'').trim();
+    const m=cl.match(/\{[\s\S]*\}/);
+    if(!m)throw new Error('No JSON found in AI response');
+    const p=JSON.parse(m[0]);
+    const D=gD();
+    ['name','title','email','phone','location'].forEach(k=>{if(p[k])D[k]=p[k]});
+    if(p.summary)D.about=p.summary;
+    if(p.objective)D.objective=p.objective;
+    if(p.experience?.length>0)D.experience=p.experience;
+    if(p.education?.length>0)D.education=p.education;
+    if(p.certifications?.length>0&&p.certifications[0].name)D.certifications=p.certifications;
+    if(p.publications?.length>0&&p.publications[0].title)D.publications=p.publications;
+    if(p.awards?.length>0&&p.awards[0].title)D.awards=p.awards;
+    sD(D);
+    status.innerHTML='<div class="al as">Profile updated! Review each section, then click Save.</div>';
+    if(btn)btn.disabled=false;
+  }catch(e){status.innerHTML=`<div class="al ae">Error: ${h(e.message)}</div>`;if(btn)btn.disabled=false;}
+}
+
+// ===== SEO =====
+function vSeo(el){
+  const D=gD();
+  el.innerHTML=`<div class="card">
+    <div class="ctit">Google Analytics</div>
+    <div class="fg"><label>Measurement ID (e.g. G-XXXXXXXXXX)</label><input id="gaId" value="${h(D.gaId||'')}" placeholder="G-XXXXXXXXXX"></div>
+    <div style="font-size:12px;color:var(--t2)">Get free at <a href="https://analytics.google.com" target="_blank">analytics.google.com</a></div>
+  </div>`;
+}
+function sSeo(){const D=gD();D.gaId=document.getElementById('gaId')?.value||'';sD(D);notif('Saved!','s')}
+
+// ===== SECURITY =====
+function vSecurity(el){
+  el.innerHTML=`<div class="card">
+    <div class="ctit">Change Admin Password</div>
+    <div class="al aw">Your password is hashed with SHA-256 and stored only in this browser. If you forget it, clear browser data and re-setup.</div>
+    <div class="fg"><label>Current Password</label><input type="password" id="curPw" placeholder="Current password"></div>
+    <div class="fg"><label>New Password (min 6 chars)</label><input type="password" id="newPw" placeholder="New password"></div>
+    <div class="fg"><label>Confirm New Password</label><input type="password" id="confPw" placeholder="Confirm new password"></div>
+    <button class="btn bp" onclick="changePw()">Update Password</button>
+    <div id="pwMsg" style="margin-top:8px;font-size:13px"></div>
+  </div>`;
+}
+async function changePw(){
+  const cur=document.getElementById('curPw').value,nw=document.getElementById('newPw').value,conf=document.getElementById('confPw').value;
+  const msg=document.getElementById('pwMsg');
+  if(!cur||!nw){msg.style.color='var(--er)';msg.textContent='Fill all fields.';return}
+  if(nw!==conf){msg.style.color='var(--er)';msg.textContent='Passwords do not match.';return}
+  if(nw.length<6){msg.style.color='var(--er)';msg.textContent='Min 6 characters.';return}
+  const curHash=await sha256(cur);
+  if(curHash!==localStorage.getItem(HASH_KEY)){msg.style.color='var(--er)';msg.textContent='Incorrect current password.';return}
+  const newHash=await sha256(nw);
+  localStorage.setItem(HASH_KEY,newHash);
+  msg.style.color='var(--ok)';msg.textContent='Password updated successfully!';
+  document.getElementById('curPw').value='';document.getElementById('newPw').value='';document.getElementById('confPw').value='';
+}
+
+// ===== EXPORT =====
+function vExport(el){
+  el.innerHTML=`<div class="card">
+    <div class="ctit">Backup & Restore</div>
+    <div style="display:flex;flex-direction:column;gap:9px">
+      <button class="btn bp" onclick="expData()">Export JSON Backup</button>
+      <label class="btn bs" style="cursor:pointer;justify-content:center">Import JSON Backup<input type="file" accept=".json" style="display:none" onchange="impData(event)"></label>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ctit">Deploy to GitHub Pages</div>
+    <div style="font-size:13px;color:var(--t2);line-height:1.9;margin-bottom:12px">
+      1. Edit everything in this admin panel<br>
+      2. Export JSON backup above<br>
+      3. Upload <code>index.html</code> and <code>admin.html</code> to GitHub repo<br>
+      4. GitHub Pages → Branch: main, Folder: / (root)<br>
+      5. On any new device: open admin.html → Import JSON backup<br>
+      <br>
+      Your data lives in browser localStorage — export regularly!
+    </div>
+    <a href="https://github.com/redwan95/kabirportfolio" target="_blank" class="btn bs">Open GitHub Repo →</a>
+  </div>
+  <div class="card">
+    <div class="ctit" style="color:var(--er)">Danger Zone</div>
+    <button class="btn bd" onclick="rstData()">Reset All Data to Defaults</button>
+    <div style="font-size:12px;color:var(--t3);margin-top:6px">Cannot be undone. Export a backup first.</div>
+  </div>`;
+}
+function expData(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(gD(),null,2)],{type:'application/json'}));a.download='portfolio_backup_'+new Date().toISOString().slice(0,10)+'.json';a.click()}
+function impData(ev){const f=ev.target.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{try{sD(JSON.parse(e.target.result));notif('Imported!','s');gV('personal')}catch(e){notif('Invalid file.','e')}};r.readAsText(f)}
+function rstData(){if(!confirm('Reset ALL data?'))return;sD(JSON.parse(JSON.stringify(DEF)));notif('Reset!','s');gV('personal')}
+</script>
+</body>
+</html>
