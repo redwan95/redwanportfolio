@@ -11,7 +11,7 @@ Two-file portfolio system. No build step needed — works directly on GitHub Pag
 1. Upload both files to your repo: `https://github.com/redwan95/kabirportfolio`
 2. Also upload `assets/RedwanKabir_CV.pdf` and `assets/profile.jpg` to an `assets/` folder
 3. Enable GitHub Pages: Settings → Pages → Branch: main, Folder: / (root)
-4. Your portfolio is live at: `https://redwan95.github.io/kabirportfolio/`
+4. Your portfolio is live at: `https://redwan95.github.io/redwanportfolio/`
 
 ## Using the Admin Panel
 
